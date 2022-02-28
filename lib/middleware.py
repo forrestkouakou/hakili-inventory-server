@@ -8,6 +8,7 @@ from django.db import models
 from django_currentuser.db.models import CurrentUserField
 from django_currentuser.middleware import get_current_user
 from requests.adapters import HTTPAdapter
+from rest_framework import serializers
 from urllib3 import Retry
 
 from lib.config import django_logger
@@ -41,6 +42,25 @@ class Monitor(models.Model):
             if not self.id:
                 self.created_by = user
         super().save(*args, **kwargs)
+
+
+class DynamicSerializer(serializers.ModelSerializer):
+
+    def to_representation(self, obj):
+        # get the original representation
+        ret = super(DynamicSerializer, self).to_representation(obj)
+
+        # remove audit fields
+        ret.pop('created_at')
+        ret.pop('updated_at')
+        ret.pop('created_by')
+        ret.pop('updated_by')
+
+        # here write the logic to check whether `elements` field is to be removed
+        # pop 'elements' from 'ret' if condition is True
+
+        # return the modified representation
+        return ret
 
 
 def upload_path(instance, filename):

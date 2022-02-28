@@ -2,7 +2,7 @@ from django_countries.serializers import CountryFieldMixin
 from rest_framework import serializers
 
 from apps.company.models import *
-from apps.core import DynamicSerializer
+from lib.middleware import DynamicSerializer
 
 
 class CompanyTypeSerializer(DynamicSerializer):

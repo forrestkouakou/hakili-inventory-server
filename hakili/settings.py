@@ -119,7 +119,7 @@ CACHES = {
     # ImproperlyConfigured exception if not found.
     #
     # The cache() method is an alias for cache_url().
-    'default': env.cache(),
+    # 'default': env.cache(),
 
     # read os.environ['REDIS_URL']
     # 'redis': env.cache_url('REDIS_URL')
