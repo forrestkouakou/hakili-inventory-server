@@ -5,3 +5,5 @@ from .email import *
 
 if settings.DEBUG:
     from .logging import *
+else:
+    from .heroku_logging import *
