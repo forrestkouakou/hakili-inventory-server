@@ -4,7 +4,6 @@ import sys
 from configparser import RawConfigParser
 from pathlib import Path
 
-import django_heroku
 import environ
 from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
@@ -114,7 +113,6 @@ DATABASES = {
     )
 }
 
-"""
 CACHES = {
     # Read os.environ['CACHE_URL'] and raises
     # ImproperlyConfigured exception if not found.
@@ -125,7 +123,6 @@ CACHES = {
     # read os.environ['REDIS_URL']
     # 'redis': env.cache_url('REDIS_URL')
 }
-"""
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -148,6 +145,7 @@ AUTH_PASSWORD_VALIDATORS = [
 AUTH_USER_MODEL = 'user.User'
 
 AUTHENTICATION_BACKENDS = (
+    # 'lib.auth_engine.AuthenticationBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -208,8 +206,5 @@ TIME_INPUT_FORMATS = [
 ]
 
 DATE_INPUT_FORMATS = ['%d %B %Y', ]
-
-import django_heroku
-django_heroku.settings(locals())
 
 from .conf import *
