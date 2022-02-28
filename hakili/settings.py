@@ -60,7 +60,7 @@ INSTALLED_APPS = [
 
     # Apps
     'apps.user.apps.UserConfig',
-    'apps.company.apps.CompanyConfig',
+    # 'apps.company.apps.CompanyConfig',
     # 'dj_rest_auth'
 ]
 
