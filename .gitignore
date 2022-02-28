@@ -6,6 +6,7 @@ __pycache__/
 venv
 .venv
 .env
+.env.*
 logs
 hakili/conf/settings.conf.*
 apps/*/migrations/*
