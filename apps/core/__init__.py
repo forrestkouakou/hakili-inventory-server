@@ -47,4 +47,5 @@ class DynamicSerializer(serializers.ModelSerializer):
         # return the modified representation
         return ret
 
+
 apps_config = AppConfig()

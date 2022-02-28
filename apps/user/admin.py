@@ -11,6 +11,8 @@ for model in apps.get_app_config('user').models.values():
     admin.site.register(model)
 
 admin.site.unregister(User)
+
+
 # admin.site.unregister(Permission)
 
 
