@@ -1,0 +1,182 @@
+{
+  "domain": "http://coliba-staging-api.herokuapp.com",
+  "path": "api/v1.0",
+  "MasterKey": "master_key",
+  "ApplicationId": "colibaserver-2021",
+  "User": {
+    "login": {
+      "url": "login",
+      "method": "GET"
+    },
+    "logout": {
+      "url": "logout",
+      "method": "POST"
+    },
+    "path": "users",
+    "class": "_User",
+    "list": {
+      "url": "",
+      "method": "GET"
+    },
+    "get": {
+      "url": "/{objectId}",
+      "method": "GET"
+    },
+    "create": {
+      "url": "",
+      "method": "POST"
+    },
+    "update": {
+      "url": "/{objectId}",
+      "method": "PUT"
+    }
+  },
+  "classes": {
+    "Conversion": {
+      "ConversionProduct": {
+        "path": "classes/ConversionProduct",
+        "list": {
+          "url": "",
+          "method": "GET"
+        },
+        "get": {
+          "url": "/{objectId}",
+          "method": "GET"
+        },
+        "create": {
+          "url": "",
+          "method": "POST"
+        },
+        "update": {
+          "url": "/{objectId}",
+          "method": "PUT"
+        }
+      },
+      "ConversionProductProvider": {
+        "path": "classes/ConversionProductProvider",
+        "list": {
+          "url": "",
+          "method": "GET"
+        },
+        "get": {
+          "url": "/{objectId}",
+          "method": "GET"
+        },
+        "create": {
+          "url": "",
+          "method": "POST"
+        },
+        "update": {
+          "url": "/{objectId}",
+          "method": "PUT"
+        }
+      },
+      "CoinConversion": {
+        "path": "classes/CoinConversion",
+        "list": {
+          "url": "",
+          "method": "GET"
+        },
+        "get": {
+          "url": "/{objectId}",
+          "method": "GET"
+        },
+        "create": {
+          "url": "",
+          "method": "POST"
+        },
+        "update": {
+          "url": "/{objectId}",
+          "method": "PUT"
+        }
+      },
+      "requestCoinConversionTreatment": {
+        "path": "functions/requestCoinConversionTreatment",
+        "create": {
+          "url": "",
+          "method": "POST"
+        }
+      }
+    },
+    "Deposit": {
+      "DepositRequest": {
+        "path": "classes/DepositRequest",
+        "list": {
+          "url": "",
+          "method": "GET"
+        },
+        "get": {
+          "url": "/{objectId}",
+          "method": "GET"
+        },
+        "create": {
+          "url": "",
+          "method": "POST"
+        },
+        "update": {
+          "url": "/{objectId}",
+          "method": "PUT"
+        }
+      },
+      "DepositLocation": {
+        "path": "classes/DepositLocation",
+        "list": {
+          "url": "",
+          "method": "GET"
+        },
+        "get": {
+          "url": "/{objectId}",
+          "method": "GET"
+        },
+        "create": {
+          "url": "",
+          "method": "POST"
+        },
+        "update": {
+          "url": "/{objectId}",
+          "method": "PUT"
+        }
+      }
+    },
+    "Location": {
+      "City": {
+        "path": "classes/City",
+        "list": {
+          "url": "",
+          "method": "GET"
+        },
+        "get": {
+          "url": "/{objectId}",
+          "method": "GET"
+        },
+        "create": {
+          "url": "",
+          "method": "POST"
+        },
+        "update": {
+          "url": "/{objectId}",
+          "method": "PUT"
+        }
+      },
+      "Street": {
+        "path": "classes/Street",
+        "list": {
+          "url": "",
+          "method": "GET"
+        },
+        "create": {
+          "url": "",
+          "method": "POST"
+        },
+        "get": {
+          "url": "/{objectId}",
+          "method": "GET"
+        },
+        "update": {
+          "url": "/{objectId}",
+          "method": "PUT"
+        }
+      }
+    }
+  }
+}
