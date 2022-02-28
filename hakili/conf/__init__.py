@@ -4,6 +4,6 @@ from .drf import *
 from .email import *
 
 if settings.DEBUG:
-    from .logging import *
-else:
+#     from .logging import *
+# else:
     from .heroku_logging import *
