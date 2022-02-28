@@ -23,7 +23,8 @@ APPS_DIR = BASE_DIR / 'apps'
 
 cfg = RawConfigParser()
 
-env.read_env(BASE_DIR / '.env')
+# env.read_env(BASE_DIR / '.env')
+env.read_env(BASE_DIR / 'env')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
