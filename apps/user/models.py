@@ -19,7 +19,7 @@ class User(AbstractBaseUser, PermissionsMixin, Monitor):
     is_admin = models.BooleanField(default=False)
     date_joined = models.DateTimeField(default=timezone.now)
 
-    # corporate = models.ManyToManyField("corporate.Corporate", through="corporate.CorporateMembership")
+    company = models.ManyToManyField("company.Company", through="company.CompanyMembership")
 
     objects = UserManager()
 

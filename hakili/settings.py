@@ -4,6 +4,7 @@ import sys
 from configparser import RawConfigParser
 from pathlib import Path
 
+import django_heroku
 import environ
 from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
@@ -55,12 +56,12 @@ INSTALLED_APPS = [
     # Third Parts
     'django_filters',
     'versatileimagefield',
-    # 'django_countries',
-    # 'django_extensions',
+    'django_countries',
+    'django_extensions',
 
     # Apps
     'apps.user.apps.UserConfig',
-    # 'apps.company.apps.CompanyConfig',
+    'apps.company.apps.CompanyConfig',
     # 'dj_rest_auth'
 ]
 
@@ -206,5 +207,8 @@ TIME_INPUT_FORMATS = [
 ]
 
 DATE_INPUT_FORMATS = ['%d %B %Y', ]
+
+import django_heroku
+django_heroku.settings(locals())
 
 from .conf import *
