@@ -44,11 +44,11 @@ class Monitor(models.Model):
         super().save(*args, **kwargs)
 
 
-class DynamicSerializer(serializers.ModelSerializer):
+class NoAuditSerializer(serializers.ModelSerializer):
 
     def to_representation(self, obj):
         # get the original representation
-        ret = super(DynamicSerializer, self).to_representation(obj)
+        ret = super(NoAuditSerializer, self).to_representation(obj)
 
         # remove audit fields
         ret.pop('created_at')

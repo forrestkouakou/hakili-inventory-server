@@ -4,11 +4,12 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from versatileimagefield.fields import VersatileImageField
 
-from apps.managers import UserManager
+from apps.managers import UserManager, UserQuerySet
 from lib.middleware import Monitor, upload_path
 
 
 class User(AbstractBaseUser, PermissionsMixin, Monitor):
+    company = models.ForeignKey("company.Company", models.CASCADE, verbose_name=_("Company"))
     first_name = models.CharField(_("First name"), max_length=60, blank=True, default="")
     last_name = models.CharField(_("Last name"), max_length=120, blank=True, default="")
     username = models.CharField(_("Username"), max_length=30)
@@ -19,9 +20,8 @@ class User(AbstractBaseUser, PermissionsMixin, Monitor):
     is_admin = models.BooleanField(default=False)
     date_joined = models.DateTimeField(default=timezone.now)
 
-    company = models.ManyToManyField("company.Company", through="company.CompanyMembership")
-
     objects = UserManager()
+    people = UserQuerySet.as_manager()
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
@@ -65,8 +65,8 @@ class User(AbstractBaseUser, PermissionsMixin, Monitor):
 
 class UserPermission(models.Model):
     id = models.BigAutoField(primary_key=True)
-    name = models.CharField(max_length=255)
-    codename = models.CharField(max_length=100)
+    name = models.CharField(max_length=255, unique=True)
+    codename = models.CharField(max_length=100, unique=True)
 
     class Meta:
         db_table = 'user_permission'
@@ -76,17 +76,3 @@ class UserPermission(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class UserRole(Monitor):
-    label = models.CharField(_("Role"), max_length=60)
-    permissions = models.ManyToManyField(UserPermission)
-
-    class Meta:
-        db_table = "user_role"
-        verbose_name = _("Role")
-        verbose_name_plural = _("Roles")
-        ordering = ["label"]
-
-    def __str__(self):
-        return self.label

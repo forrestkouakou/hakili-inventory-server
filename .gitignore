@@ -7,6 +7,7 @@ venv
 .venv
 .env
 .env.*
+*.env
 logs
 hakili/conf/settings.conf.*
 apps/*/migrations/*

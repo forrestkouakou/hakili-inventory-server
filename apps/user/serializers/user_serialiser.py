@@ -1,24 +1,21 @@
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import Group, Permission
+from django_restql.mixins import DynamicFieldsMixin
 from rest_framework import serializers
 
-from lib.middleware import DynamicSerializer
-from apps.user.models import UserRole
+# from lib.middleware import DynamicSerializer
+from apps.company.serializers import CompanySerializer
+from apps.user.models import UserPermission
 
 
-class GroupSerializer(DynamicSerializer):
+class UserPermissionSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
     class Meta:
-        model = Group
+        model = UserPermission
         fields = "__all__"
 
 
-class PermissionSerializer(DynamicSerializer):
-    class Meta:
-        model = Permission
-        fields = "__all__"
+class UserSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
+    company = CompanySerializer(many=False, read_only=True)
 
-
-class UserSerializer(DynamicSerializer):
     class Meta:
         model = get_user_model()
         # fields = "__all__"
@@ -27,9 +24,3 @@ class UserSerializer(DynamicSerializer):
             "username": {"required": False},
             "email": {"required": False}
         }
-
-
-class UserRoleSerializer(DynamicSerializer):
-    class Meta:
-        model = UserRole
-        fields = "__all__"
