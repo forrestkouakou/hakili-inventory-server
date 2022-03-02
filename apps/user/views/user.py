@@ -16,6 +16,8 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows user to be viewed or edited.
     """
-    queryset = get_user_model().people.user_list().order_by('-created_by')
     serializer_class = UserSerializer
+
     # permission_classes = [permissions.IsAuthenticated]
+    def get_queryset(self):
+        return get_user_model().people.user_list().filter(company=self.kwargs['company_pk'])

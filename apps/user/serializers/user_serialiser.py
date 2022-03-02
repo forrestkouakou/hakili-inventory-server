@@ -1,19 +1,18 @@
 from django.contrib.auth import get_user_model
 from django_restql.mixins import DynamicFieldsMixin
-from rest_framework import serializers
 
-# from lib.middleware import DynamicSerializer
 from apps.company.serializers import CompanySerializer
 from apps.user.models import UserPermission
+from lib.middleware import NoAuditSerializer
 
 
-class UserPermissionSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
+class UserPermissionSerializer(DynamicFieldsMixin, NoAuditSerializer):
     class Meta:
         model = UserPermission
         fields = "__all__"
 
 
-class UserSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
+class UserSerializer(DynamicFieldsMixin, NoAuditSerializer):
     company = CompanySerializer(many=False, read_only=True)
 
     class Meta:

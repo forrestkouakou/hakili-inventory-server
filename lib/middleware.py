@@ -51,10 +51,10 @@ class NoAuditSerializer(serializers.ModelSerializer):
         ret = super(NoAuditSerializer, self).to_representation(obj)
 
         # remove audit fields
-        ret.pop('created_at')
-        ret.pop('updated_at')
-        ret.pop('created_by')
-        ret.pop('updated_by')
+        ret.pop('created_at', None)
+        ret.pop('updated_at', None)
+        ret.pop('created_by', None)
+        ret.pop('updated_by', None)
 
         # here write the logic to check whether `elements` field is to be removed
         # pop 'elements' from 'ret' if condition is True
