@@ -8,6 +8,8 @@ venv
 .env
 .env.*
 *.env
+*.sql
+*.png
 logs
 hakili/conf/settings.conf.*
 apps/*/migrations/*
@@ -17,5 +19,4 @@ files/
 public/
 staticfiles/
 db.sqlite3
-*.sql
-*.png
+finance/

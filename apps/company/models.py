@@ -9,7 +9,7 @@ from lib.middleware import Monitor, upload_path
 
 
 class CompanyType(Monitor):
-    label = models.CharField(_("Company type"), max_length=45, unique=True)
+    label = models.CharField(_("Company type"), max_length=120, unique=True)
 
     class Meta:
         db_table = "company_type"
@@ -22,7 +22,7 @@ class CompanyType(Monitor):
 
 
 class CompanyRole(Monitor):
-    label = models.CharField(_("Role"), max_length=60, unique=True)
+    label = models.CharField(_("Role"), max_length=120, unique=True)
     permissions = models.ManyToManyField("user.UserPermission")
 
     class Meta:
