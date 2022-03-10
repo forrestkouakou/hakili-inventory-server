@@ -1,0 +1,5 @@
+Welcome to Hakili, \n\n
+Your account have been successfully created, \n
+Using this email address {{ user.email }} \n
+To activate this account please create a password using the link bellow. \n
+{{ domain }}{% url "activate-account" uid token %}

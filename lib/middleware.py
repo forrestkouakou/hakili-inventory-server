@@ -4,13 +4,16 @@ import re
 import string
 
 import requests
+from django.core.mail import EmailMultiAlternatives
 from django.db import models
+from django.template.loader import get_template
 from django_currentuser.db.models import CurrentUserField
 from django_currentuser.middleware import get_current_user
 from requests.adapters import HTTPAdapter
 from rest_framework import serializers
 from urllib3 import Retry
 
+from hakili.settings import env
 from lib.config import django_logger
 
 app_name = __package__.split('.')[0]
@@ -55,9 +58,6 @@ class NoAuditSerializer(serializers.ModelSerializer):
         ret.pop('updated_at', None)
         ret.pop('created_by', None)
         ret.pop('updated_by', None)
-
-        # here write the logic to check whether `elements` field is to be removed
-        # pop 'elements' from 'ret' if condition is True
 
         # return the modified representation
         return ret
@@ -157,12 +157,10 @@ def api_call(url="", method="", data=None, timeout=15, retries=1, verify=False, 
         return {"status": False, "message": "{}".format(e)}
 
 
-def exec_api_call(url="", method="", headers=None, params=None, retries=0, timeout=15, scope='', verify=False,
+def exec_api_call(url="", method="", headers=None, params=None, retries=1, timeout=15, scope='', verify=False,
                   auth=None):
-    data = {}
-    data["headers"] = headers
-    data["params"] = params
-    call = api_call(url, method, data, timeout=timeout, verify=verify, auth=auth)
+    data = {"headers": headers, "params": params}
+    call = api_call(url, method, data, timeout=timeout, retries=retries, verify=verify, auth=auth)
     if "status" in call:
         return {}
     if not url_works(call.status_code):
@@ -212,3 +210,21 @@ def dict_to_querydict(dictionary):
         qdict.update(MultiValueDict(dictionary))
 
     return qdict
+
+
+def notifier(**kwargs):
+    action = kwargs.get("action")
+    e_subject = kwargs.get("e_subject", "")
+    e_sender = kwargs.get("e_sender", "info")
+    e_receiver = kwargs.get("e_receiver", "")
+    e_context = kwargs.get("e_context", {})
+
+    text_content = get_template('notify/{}.txt'.format(action))
+    html_content = get_template('notify/{}.html'.format(action))
+
+    subject, from_email, to = e_subject, "{0}@{1}".format(e_sender, env("DOMAIN")), e_receiver
+    text_content = text_content.render(e_context)
+    html_content = html_content.render(e_context)
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()

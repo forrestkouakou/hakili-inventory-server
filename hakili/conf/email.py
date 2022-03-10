@@ -1,6 +1,11 @@
+from django.conf import settings
+
 from hakili.settings import env
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+if settings.DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 EMAIL_HOST = ""
 EMAIL_PORT = ""

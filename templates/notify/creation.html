@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Member Creation Email</title>
+</head>
+<body>
+Welcome to <strong>Hakili</strong>, <br><br>
+
+Your account have been successfully created, <br>
+Using the following email address <strong>{{ user.email }}</strong>
+
+To activate this account please create a password using the link bellow. <br>
+
+<a href="{{ domain }}{% url "activate-account" uid token %}" target="_blank">{{ domain }}{% url "activate-account" uid token %}</a>
+<br>
+
+Regards.
+</body>
+</html>

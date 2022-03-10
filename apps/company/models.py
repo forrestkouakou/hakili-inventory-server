@@ -23,13 +23,12 @@ class CompanyType(Monitor):
 
 class CompanyRole(Monitor):
     label = models.CharField(_("Role"), max_length=60, unique=True)
-    # permissions = models.ManyToManyField(UserPermission)
+    permissions = models.ManyToManyField("user.UserPermission")
 
     class Meta:
         db_table = "company_role"
         verbose_name = _("Role")
         verbose_name_plural = _("Roles")
-        ordering = ["label"]
 
     def __str__(self):
         return self.label
@@ -41,7 +40,6 @@ class Company(Monitor):
     name = models.CharField(_("Name"), max_length=120, unique=True)
     domain = models.CharField(_("Domain"), max_length=120, blank=True)
     logo = VersatileImageField(upload_to=upload_path, blank=True, null=True)
-    # is_active = models.BooleanField(default=True)
     status = models.BooleanField(_("Status"), choices=STATUS_CHOICES, default=ACTIVATED, null=True)
     roles = models.ManyToManyField("CompanyRole", related_name="companies")
 
@@ -80,6 +78,9 @@ class CompanyDetails(Monitor):
         verbose_name = _("Company Details")
         verbose_name_plural = _("Company Details")
         ordering = ["company"]
+
+    def __str__(self):
+        return self.company.name
 
 
 """

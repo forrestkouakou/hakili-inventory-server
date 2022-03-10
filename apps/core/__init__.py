@@ -5,6 +5,9 @@ from django.contrib.auth.models import Permission
 
 
 class AppConfig:
+    READ_METHODS = ["GET"]
+    WRITE_METHODS = ["POST", "PUT", "PATCH"]
+
     def __init__(self):
         self.django_apps = ["admin", "auth", "authtoken", "contenttypes", "sessions"]
 
@@ -26,6 +29,11 @@ class AppConfig:
 
     def app_permissions(self):
         return Permission.objects.exclude(content_type__app_label__in=self.django_apps)
+
+    def get_method_type(self, method_type="read|write"):
+        if method_type is not None:
+            pass
+
 
 
 apps_config = AppConfig()
