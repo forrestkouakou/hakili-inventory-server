@@ -35,7 +35,7 @@ class CompanyRole(Monitor):
 
 
 class Company(Monitor):
-    company_type = models.ForeignKey("CompanyType", models.DO_NOTHING, blank=True, null=True,
+    company_type = models.ForeignKey("CompanyType", models.SET_NULL, blank=True, null=True,
                                      verbose_name=_("Company type"))
     name = models.CharField(_("Name"), max_length=120, unique=True)
     domain = models.CharField(_("Domain"), max_length=120, blank=True)
