@@ -1,7 +1,9 @@
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from versatileimagefield.fields import VersatileImageField
 
+from lib.enums import PAYMENT_TYPE
 from lib.middleware import Monitor, Hider, upload_path
 
 
@@ -37,10 +39,11 @@ class Product(Monitor):
     name = models.CharField(_("Name"), max_length=255)
     summary = models.TextField(_("Summary"), blank=True)
     code = models.CharField(_("Code"), max_length=10, blank=True, default="")
-    price = models.DecimalField(_("Price"), max_digits=15, decimal_places=0, default=0)
+    price = models.DecimalField(_("Price"), max_digits=15, decimal_places=3, default=0)
     logo = VersatileImageField(upload_to=upload_path, blank=True, null=True)
     quantity = models.IntegerField(_("Quantity"), blank=True, null=True)
-    rate = models.FloatField(_("Rate"), blank=True, null=True)
+    # rate = models.FloatField(_("Rate"), blank=True, null=True)
+    meta_data = models.ManyToManyField("ProductMetaData", related_name="metadata")
     is_active = models.BooleanField(_("Is active"), default=True)
 
     class Meta:
@@ -52,15 +55,24 @@ class Product(Monitor):
         return self.name
 
 
+class ProductMetaData(Monitor):
+    key = models.CharField(_("Key"), max_length=60)
+    value = models.CharField(_("Value"), max_length=120)
+
+    class Meta:
+        verbose_name = _("Product meta")
+        verbose_name_plural = _("Product meta")
+
+
 class Order(Monitor):
-    sub_total = models.FloatField(max_length=100)
-    vat = models.FloatField(max_length=100)
-    total_amount = models.FloatField(max_length=100)
-    discount = models.FloatField(max_length=100)
-    grand_total = models.FloatField(max_length=100)
-    paid = models.FloatField(max_length=100)
-    due = models.FloatField(max_length=100)
-    payment_type = models.CharField(max_length=100)
+    sub_total = models.DecimalField(_("Sub total"), max_digits=15, decimal_places=3, default=0)
+    vat = models.DecimalField(_("Vat"), max_digits=5, decimal_places=2, default=0)
+    total_amount = models.DecimalField(_("Total amount"), max_digits=15, decimal_places=3, default=0)
+    discount = models.DecimalField(_("Discount"), max_digits=15, decimal_places=3, default=0)
+    grand_total = models.DecimalField(_("Grand total"), max_digits=15, decimal_places=3, default=0)
+    paid = models.DecimalField(_("Paid"), max_digits=15, decimal_places=3, default=0)
+    due = models.DecimalField(_("Due"), max_digits=15, decimal_places=3, default=0)
+    payment_type = models.CharField(_("Payment type"), choices=PAYMENT_TYPE, max_length=20, blank=True, default="")
     payment_status = models.IntegerField()
     status = models.IntegerField()
 
@@ -72,11 +84,11 @@ class Order(Monitor):
 
 
 class OrderItem(Monitor):
-    order = models.ForeignKey(Order, models.CASCADE)
-    product = models.ForeignKey(Product, models.CASCADE)
-    quantity = models.IntegerField()
-    rate = models.FloatField(max_length=100)
-    total = models.FloatField(max_length=100)
+    order = models.ForeignKey(Order, models.CASCADE, verbose_name="Order")
+    product = models.ForeignKey(Product, models.CASCADE, verbose_name="Product")
+    quantity = models.PositiveIntegerField(_("Quantity"), validators=[MinValueValidator(1)])
+    rate = models.DecimalField(_("Rate"), max_digits=15, decimal_places=3, default=0)
+    total = models.DecimalField(_("Total"), max_digits=15, decimal_places=3, default=0)
     status = models.IntegerField()
 
     class Meta:

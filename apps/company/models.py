@@ -4,7 +4,7 @@ from django_countries.fields import CountryField
 from versatileimagefield.fields import VersatileImageField
 
 from apps.managers.company_manager import CompanyQuerySet
-from lib.enums import STATUS_CHOICES, ACTIVATED
+from lib.enums import STATUS_CHOICES
 from lib.middleware import Monitor, upload_path
 
 
@@ -40,7 +40,7 @@ class Company(Monitor):
     name = models.CharField(_("Name"), max_length=120, unique=True)
     domain = models.CharField(_("Domain"), max_length=120, blank=True)
     logo = VersatileImageField(upload_to=upload_path, blank=True, null=True)
-    status = models.BooleanField(_("Status"), choices=STATUS_CHOICES, default=ACTIVATED, null=True)
+    status = models.BooleanField(_("Status"), choices=STATUS_CHOICES, default=True, null=True)
     roles = models.ManyToManyField("CompanyRole", related_name="companies")
 
     objects = CompanyQuerySet.as_manager()
