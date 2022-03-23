@@ -12,6 +12,7 @@ class Brand(Monitor):
     is_active = models.BooleanField(_("Is active"), default=True)
 
     class Meta:
+        app_label = "stock"
         verbose_name = _("Brand")
         verbose_name_plural = _("Brands")
         ordering = ["label"]
@@ -25,6 +26,7 @@ class Category(Monitor):
     is_active = models.BooleanField(_("Is active"), default=True)
 
     class Meta:
+        app_label = "stock"
         verbose_name = _("Category")
         verbose_name_plural = _("Categories")
         ordering = ["label"]
@@ -47,6 +49,7 @@ class Product(Monitor):
     is_active = models.BooleanField(_("Is active"), default=True)
 
     class Meta:
+        app_label = "stock"
         verbose_name = _("Product")
         verbose_name_plural = _("Product")
         ordering = ["name"]
@@ -60,6 +63,7 @@ class ProductMetaData(Monitor):
     value = models.CharField(_("Value"), max_length=120)
 
     class Meta:
+        app_label = "stock"
         verbose_name = _("Product meta")
         verbose_name_plural = _("Product meta")
 
@@ -79,6 +83,7 @@ class Order(Monitor):
     updated_at = Hider()
 
     class Meta:
+        app_label = "stock"
         verbose_name = _("Order")
         verbose_name_plural = _("Orders")
 
@@ -92,5 +97,6 @@ class OrderItem(Monitor):
     status = models.IntegerField()
 
     class Meta:
+        app_label = "stock"
         verbose_name = _("Item")
         verbose_name_plural = _("Items")

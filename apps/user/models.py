@@ -15,7 +15,7 @@ class User(AbstractBaseUser, PermissionsMixin, Monitor):
     email = models.EmailField(_("Email address"), max_length=225, unique=True)
     username = models.CharField(_("Username"), max_length=30)
     avatar = VersatileImageField(_("Avatar"), upload_to=upload_path, blank=True, null=True)
-    phone = models.CharField(_("Phone number"), max_length=60, blank=True, default="")
+    phone = models.CharField(_("Phone number"), max_length=15, blank=True, default="")
     is_active = models.BooleanField(_("Is active"), default=False)
     is_admin = models.BooleanField(_("Is admin"), default=False)
     date_joined = models.DateTimeField(default=timezone.now)
@@ -28,6 +28,7 @@ class User(AbstractBaseUser, PermissionsMixin, Monitor):
     REQUIRED_FIELDS = []
 
     class Meta:
+        app_label = "user"
         db_table = "user"
         verbose_name = _("User")
         verbose_name_plural = _("Users")
@@ -70,6 +71,7 @@ class UserPermission(models.Model):
     codename = models.CharField(max_length=100, unique=True)
 
     class Meta:
+        app_label = "user"
         db_table = 'user_permission'
         verbose_name = _("User permission")
         verbose_name_plural = _("Users permissions")

@@ -12,6 +12,7 @@ class CompanyType(Monitor):
     label = models.CharField(_("Company type"), max_length=120, unique=True)
 
     class Meta:
+        app_label = "company"
         db_table = "company_type"
         verbose_name = _("Company type")
         verbose_name_plural = _("Company types")
@@ -26,6 +27,7 @@ class CompanyRole(Monitor):
     permissions = models.ManyToManyField("user.UserPermission")
 
     class Meta:
+        app_label = "company"
         db_table = "company_role"
         verbose_name = _("Role")
         verbose_name_plural = _("Roles")
@@ -46,6 +48,7 @@ class Company(Monitor):
     objects = CompanyQuerySet.as_manager()
 
     class Meta:
+        app_label = "company"
         db_table = "company"
         verbose_name = _("Company")
         verbose_name_plural = _("Company")
@@ -74,6 +77,7 @@ class CompanyDetails(Monitor):
     post_code = models.CharField(_("Post code"), max_length=60, blank=True, default="")
 
     class Meta:
+        app_label = "company"
         db_table = "company_details"
         verbose_name = _("Company Details")
         verbose_name_plural = _("Company Details")
