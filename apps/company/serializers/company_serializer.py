@@ -54,6 +54,7 @@ class CompanyReadSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
     class Meta:
         model = Company
         fields = (
+            "id",
             "company_type",
             "name",
             "domain",

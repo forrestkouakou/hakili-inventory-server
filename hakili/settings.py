@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'versatileimagefield',
     'django_countries',
     'django_extensions',
+    'django_seed',
 
     # Apps
     'apps.user.apps.UserConfig',

@@ -1,6 +1,7 @@
 from django_restql.mixins import DynamicFieldsMixin
 from rest_framework import serializers
 
+from apps.company.serializers import CompanyReadSerializer
 from apps.stock.models import *
 
 
@@ -18,11 +19,14 @@ class CategorySerializer(DynamicFieldsMixin, serializers.ModelSerializer):
 
 class ProductMetaDataSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
     class Meta:
-        model = Category
+        model = ProductMetaData
         fields = ("key", "value",)
 
 
 class ProductSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
+    company = CompanyReadSerializer()
+    brand = BrandSerializer()
+    category = CategorySerializer()
     meta_data = ProductMetaDataSerializer(many=True)
 
     class Meta:

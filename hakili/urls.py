@@ -28,16 +28,16 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    re_path(r"^api/(?P<version>(v1|v2))/", include("apps.user.urls"), name="api"),
-    re_path(r"^api/(?P<version>(v1|v2))/", include("apps.company.urls"), name="api"),
-    re_path(r"^api/(?P<version>(v1|v2))/", include("apps.stock.urls"), name="api"),
+    re_path(r"^api/(?P<version>(v1|v2))/", include("apps.company.urls"), name="company"),
+    re_path(r"^api/(?P<version>(v1|v2))/", include("apps.user.urls"), name="user"),
+    re_path(r"^api/(?P<version>(v1|v2))/", include("apps.stock.urls"), name="stock"),
 
     re_path(r"^api/(?P<version>(v1|v2))/token/", jwt_views.TokenObtainPairView.as_view(), name="token_obtain_pair"),
     re_path(r"^api/(?P<version>(v1|v2))/token/refresh/", jwt_views.TokenRefreshView.as_view(), name="token_refresh"),
 
-    re_path(r'^activate-account/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,64})', ActivateAccountView.as_view(), name="activate-account"),
+    re_path(r"^activate-account/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,64})", ActivateAccountView.as_view(), name="activate-account"),
 
-    path("alive", views.is_alive, name="is_alive"),
+    path("alive", views.is_alive, name="is-alive"),
 ]
 
 urlpatterns += [

@@ -44,7 +44,7 @@ class Product(Monitor):
     code = models.CharField(_("Code"), max_length=10, blank=True, default="")
     price = models.DecimalField(_("Price"), max_digits=15, decimal_places=3, default=0)
     logo = VersatileImageField(upload_to=upload_path, blank=True, null=True)
-    quantity = models.IntegerField(_("Quantity"), blank=True, null=True)
+    quantity = models.PositiveIntegerField(_("Quantity"), blank=True, null=True)
     # rate = models.FloatField(_("Rate"), blank=True, null=True)
     meta_data = models.ManyToManyField("ProductMetaData", related_name="metadata")
     is_active = models.BooleanField(_("Is active"), default=True)
