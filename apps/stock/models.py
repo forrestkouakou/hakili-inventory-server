@@ -36,6 +36,7 @@ class Category(Monitor):
 
 
 class Product(Monitor):
+    company = models.ForeignKey("company.Company", models.CASCADE, verbose_name=_("Company"))
     brand = models.ForeignKey(Brand, models.SET_NULL, blank=True, null=True, verbose_name=_("Brand"))
     category = models.ForeignKey(Category, models.SET_NULL, blank=True, null=True, verbose_name=_("Category"))
     name = models.CharField(_("Name"), max_length=255)

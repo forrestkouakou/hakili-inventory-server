@@ -111,6 +111,17 @@ DATABASES = {
     # The db() method is an alias for db_url().
     'default': env.db(),
 
+    # 'inventory': env.db_url('MYSQL_URL'),
+
+    'inventory': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'inventory',
+        'USER': 'root',
+        'PASSWORD': 'root',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+    },
+
     # read os.environ['SQLITE_URL']
     'extra': env.db_url(
         'SQLITE_URL',

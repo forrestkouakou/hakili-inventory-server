@@ -19,5 +19,6 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 
     # permission_classes = [permissions.IsAuthenticated]
+
     def get_queryset(self):
         return get_user_model().people.user_list().filter(company=self.kwargs['company_pk'])
