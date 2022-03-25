@@ -2,7 +2,7 @@ from rest_framework import routers
 
 from .views import *
 
-router = routers.DefaultRouter()
+router = routers.SimpleRouter()
 router.register("users", UserViewSet, basename="user")
 router.register("user-permissions", UserPermissionViewSet)
 
