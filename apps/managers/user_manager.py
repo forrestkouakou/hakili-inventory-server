@@ -47,8 +47,8 @@ class UserManager(BaseUserManager):
 class UserQuerySet(GlobalQuerySet):
     def reserved_user_list(self):
         """Returns reserved user_list"""
-        return self.filter(id__in=[1])
+        return self.filter(is_superuser=True)
 
     def user_list(self):
         """Returns all available user list"""
-        return self.exclude(id__in=[1])
+        return self.exclude(is_superuser=True)
