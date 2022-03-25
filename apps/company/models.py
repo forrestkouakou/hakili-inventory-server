@@ -43,7 +43,7 @@ class Company(Monitor):
     domain = models.CharField(_("Domain"), max_length=120, blank=True)
     logo = VersatileImageField(upload_to=upload_path, blank=True, null=True)
     status = models.BooleanField(_("Status"), choices=STATUS_CHOICES, default=True, null=True)
-    roles = models.ManyToManyField("CompanyRole", related_name="companies")
+    roles = models.ManyToManyField("CompanyRole", related_name="companies", blank=True, null=True)
 
     objects = CompanyQuerySet.as_manager()
 
