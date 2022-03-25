@@ -1,54 +1,54 @@
-asgiref==3.5.0
-backports.zoneinfo==0.2.1
-certifi==2021.10.8
-charset-normalizer==2.0.12
-configparser==5.2.0
-coreapi==2.3.3
-coreschema==0.0.4
-dj-database-url==0.5.0
-Django==4.0.3
-django-cors-headers==3.11.0
-django-countries==7.3.1
-django-currentuser==0.5.3
-django-environ==0.8.1
-django-extensions==3.1.5
-django-filter==21.1
-django-model-utils==4.2.0
-django-restql==0.15.1
-django-seed==0.3.1
-django-versatileimagefield==2.2
-djangorestframework==3.13.1
-djangorestframework-simplejwt==5.1.0
-drf-nested-routers==0.93.4
-drf-writable-nested==0.6.3
-drf-yasg==1.20.0
-Faker==13.3.3
-gunicorn==20.1.0
-idna==3.3
-inflection==0.5.1
-itypes==1.2.0
-Jinja2==3.0.3
-MarkupSafe==2.1.0
-mysqlclient==2.0.0
-packaging==21.3
-Pillow==9.0.1
-psycopg2==2.9.3
-psycopg2-binary==2.9.3
-pygraphviz==1.9
-PyJWT==2.3.0
-pyparsing==3.0.7
-pyPEG2==2.15.2
-python-dateutil==2.8.2
-python-magic==0.4.25
-python-memcached==1.59
-pytz==2021.3
-requests==2.27.1
-ruamel.yaml==0.17.21
-ruamel.yaml.clib==0.2.6
-six==1.16.0
-sqlparse==0.4.2
-toposort==1.7
-typing-extensions==4.1.1
-uritemplate==4.1.1
-urllib3==1.26.8
-Werkzeug==2.0.3
+--no-depts asgiref==3.5.0
+--no-depts backports.zoneinfo==0.2.1
+--no-depts certifi==2021.10.8
+--no-depts charset-normalizer==2.0.12
+--no-depts configparser==5.2.0
+--no-depts coreapi==2.3.3
+--no-depts coreschema==0.0.4
+--no-depts dj-database-url==0.5.0
+--no-depts Django==4.0.3
+--no-depts django-cors-headers==3.11.0
+--no-depts django-countries==7.3.1
+--no-depts django-currentuser==0.5.3
+--no-depts django-environ==0.8.1
+--no-depts django-extensions==3.1.5
+--no-depts django-filter==21.1
+--no-depts django-model-utils==4.2.0
+--no-depts django-restql==0.15.1
+--no-depts django-seed==0.3.1
+--no-depts django-versatileimagefield==2.2
+--no-depts djangorestframework==3.13.1
+--no-depts djangorestframework-simplejwt==5.1.0
+--no-depts drf-nested-routers==0.93.4
+--no-depts drf-writable-nested==0.6.3
+--no-depts drf-yasg==1.20.0
+--no-depts Faker==13.3.3
+--no-depts gunicorn==20.1.0
+--no-depts idna==3.3
+--no-depts inflection==0.5.1
+--no-depts itypes==1.2.0
+--no-depts Jinja2==3.0.3
+--no-depts MarkupSafe==2.1.0
+--no-depts mysqlclient==2.0.0
+--no-depts packaging==21.3
+--no-depts Pillow==9.0.1
+--no-depts psycopg2==2.9.3
+--no-depts psycopg2-binary==2.9.3
+--no-depts pygraphviz==1.9
+--no-depts PyJWT==2.3.0
+--no-depts pyparsing==3.0.7
+--no-depts pyPEG2==2.15.2
+--no-depts python-dateutil==2.8.2
+--no-depts python-magic==0.4.25
+--no-depts python-memcached==1.59
+--no-depts pytz==2021.3
+--no-depts requests==2.27.1
+--no-depts ruamel.yaml==0.17.21
+--no-depts ruamel.yaml.clib==0.2.6
+--no-depts six==1.16.0
+--no-depts sqlparse==0.4.2
+--no-depts toposort==1.7
+--no-depts typing-extensions==4.1.1
+--no-depts uritemplate==4.1.1
+--no-depts urllib3==1.26.8
+--no-depts Werkzeug==2.0.3
