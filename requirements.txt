@@ -15,18 +15,21 @@ django-extensions==3.1.5
 django-filter==21.1
 django-model-utils==4.2.0
 django-restql==0.15.1
+django-seed==0.3.1
 django-versatileimagefield==2.2
 djangorestframework==3.13.1
 djangorestframework-simplejwt==5.1.0
 drf-nested-routers==0.93.4
 drf-writable-nested==0.6.3
 drf-yasg==1.20.0
+Faker==13.3.3
 gunicorn==20.1.0
 idna==3.3
 inflection==0.5.1
 itypes==1.2.0
 Jinja2==3.0.3
 MarkupSafe==2.1.0
+mysqlclient==2.0.0
 packaging==21.3
 Pillow==9.0.1
 psycopg2==2.9.3
@@ -35,6 +38,7 @@ pygraphviz==1.9
 PyJWT==2.3.0
 pyparsing==3.0.7
 pyPEG2==2.15.2
+python-dateutil==2.8.2
 python-magic==0.4.25
 python-memcached==1.59
 pytz==2021.3
@@ -43,6 +47,7 @@ ruamel.yaml==0.17.21
 ruamel.yaml.clib==0.2.6
 six==1.16.0
 sqlparse==0.4.2
+toposort==1.7
 typing-extensions==4.1.1
 uritemplate==4.1.1
 urllib3==1.26.8
