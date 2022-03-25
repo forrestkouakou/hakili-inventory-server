@@ -34,7 +34,7 @@ packaging
 Pillow
 psycopg2
 psycopg2-binary
-pygraphviz
+# pygraphviz
 PyJWT
 pyparsing
 pyPEG2
