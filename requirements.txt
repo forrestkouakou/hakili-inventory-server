@@ -1,54 +1,54 @@
-asgiref --install-option="--no-deps"
-backports.zoneinfo --install-option="--no-deps"
-certifi --install-option="--no-deps"
-charset-normalizer --install-option="--no-deps"
-configparser --install-option="--no-deps"
-coreapi --install-option="--no-deps"
-coreschema --install-option="--no-deps"
-dj-database-url --install-option="--no-deps"
-Django --install-option="--no-deps"
-django-cors-headers --install-option="--no-deps"
-django-countries --install-option="--no-deps"
-django-currentuser --install-option="--no-deps"
-django-environ --install-option="--no-deps"
-django-extensions --install-option="--no-deps"
-django-filter --install-option="--no-deps"
-django-model-utils --install-option="--no-deps"
-django-restql --install-option="--no-deps"
-django-seed --install-option="--no-deps"
-django-versatileimagefield --install-option="--no-deps"
-djangorestframework --install-option="--no-deps"
-djangorestframework-simplejwt --install-option="--no-deps"
-drf-nested-routers --install-option="--no-deps"
-drf-writable-nested --install-option="--no-deps"
-drf-yasg --install-option="--no-deps"
-Faker --install-option="--no-deps"
-gunicorn --install-option="--no-deps"
-idna --install-option="--no-deps"
-inflection --install-option="--no-deps"
-itypes --install-option="--no-deps"
-Jinja2 --install-option="--no-deps"
-MarkupSafe --install-option="--no-deps"
-mysqlclient --install-option="--no-deps"
-packaging --install-option="--no-deps"
-Pillow --install-option="--no-deps"
-psycopg2 --install-option="--no-deps"
-psycopg2-binary --install-option="--no-deps"
-pygraphviz --install-option="--no-deps"
-PyJWT --install-option="--no-deps"
-pyparsing --install-option="--no-deps"
-pyPEG2 --install-option="--no-deps"
-python-dateutil --install-option="--no-deps"
-python-magic --install-option="--no-deps"
-python-memcached --install-option="--no-deps"
-pytz --install-option="--no-deps"
-requests --install-option="--no-deps"
-ruamel.yaml --install-option="--no-deps"
-ruamel.yaml.clib --install-option="--no-deps"
-six --install-option="--no-deps"
-sqlparse --install-option="--no-deps"
-toposort --install-option="--no-deps"
-typing-extensions --install-option="--no-deps"
-uritemplate --install-option="--no-deps"
-urllib3 --install-option="--no-deps"
-Werkzeug --install-option="--no-deps"
+asgiref==3.5.0
+backports.zoneinfo==0.2.1
+certifi==2021.10.8
+charset-normalizer==2.0.12
+configparser==5.2.0
+coreapi==2.3.3
+coreschema==0.0.4
+dj-database-url==0.5.0
+Django==4.0.3
+django-cors-headers==3.11.0 --install-option="--no-deps"
+django-countries==7.3.1
+django-currentuser==0.5.3 --install-option="--no-deps"
+django-environ==0.8.1
+django-extensions==3.1.5
+django-filter==21.1
+django-model-utils==4.2.0
+django-restql==0.15.1
+django-seed==0.3.1
+django-versatileimagefield==2.2
+djangorestframework==3.13.1
+djangorestframework-simplejwt==5.1.0
+drf-nested-routers==0.93.4
+drf-writable-nested==0.6.3
+drf-yasg==1.20.0
+Faker==13.3.3
+gunicorn==20.1.0
+idna==3.3
+inflection==0.5.1
+itypes==1.2.0
+Jinja2==3.0.3
+MarkupSafe==2.1.0
+mysqlclient==2.0.0
+packaging==21.3
+Pillow==9.0.1
+psycopg2==2.9.3
+psycopg2-binary==2.9.3
+pygraphviz==1.9
+PyJWT==2.3.0
+pyparsing==3.0.7
+pyPEG2==2.15.2
+python-dateutil==2.8.2
+python-magic==0.4.25
+python-memcached==1.59
+pytz==2021.3
+requests==2.27.1
+ruamel.yaml==0.17.21
+ruamel.yaml.clib==0.2.6
+six==1.16.0
+sqlparse==0.4.2
+toposort==1.7
+typing-extensions==4.1.1
+uritemplate==4.1.1
+urllib3==1.26.8
+Werkzeug==2.0.3
