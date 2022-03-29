@@ -1,5 +1,3 @@
-import secrets
-
 from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -47,7 +45,7 @@ class Product(Monitor):
     category = models.ForeignKey(Category, models.SET_NULL, blank=True, null=True, verbose_name=_("Category"))
     name = models.CharField(_("Name"), max_length=255)
     description = models.TextField(_("Description"), blank=True)
-    sku = models.CharField(_("SKU"), max_length=10, unique=True, default=secrets.token_hex(5).upper(), editable=False)
+    sku = models.CharField(_("SKU"), max_length=10, unique=True, default="", editable=False)
     # slug = models.SlugField(_("Slug"), unique=True)
     price = models.DecimalField(_("Price"), max_digits=15, decimal_places=3, default=0)
     logo = VersatileImageField(_("Logo"), upload_to=upload_path, blank=True, null=True)
