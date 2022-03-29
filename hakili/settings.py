@@ -1,10 +1,10 @@
 import locale
 import os
 import sys
-from configparser import RawConfigParser
 from pathlib import Path
 
 import environ
+from configparser import RawConfigParser
 from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
 
@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     # Apps
     'apps.user.apps.UserConfig',
     'apps.company.apps.CompanyConfig',
+    # 'apps.product.apps.ProductConfig',
     'apps.stock.apps.StockConfig',
     # 'dj_rest_auth'
 ]

@@ -1,14 +1,17 @@
+import secrets
+
 from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from versatileimagefield.fields import VersatileImageField
 
-from lib.enums import PAYMENT_TYPE
+from lib.enums import PAYMENT_TYPE, TRANSACTION_MODE, TRANSACTION_STATUS, ORDER_STATUS
 from lib.middleware import Monitor, Hider, upload_path
 
 
 class Brand(Monitor):
     label = models.CharField(_("Brand"), max_length=120)
+    description = models.TextField(_("Description"), blank=True, default="")
     is_active = models.BooleanField(_("Is active"), default=True)
 
     class Meta:
@@ -23,7 +26,10 @@ class Brand(Monitor):
 
 class Category(Monitor):
     label = models.CharField(_("Label"), max_length=120)
+    description = models.TextField(_("Description"), blank=True, default="")
     is_active = models.BooleanField(_("Is active"), default=True)
+
+    # slug = models.CharField(_("Slug"), max_length=100)
 
     class Meta:
         app_label = "stock"
@@ -40,13 +46,14 @@ class Product(Monitor):
     brand = models.ForeignKey(Brand, models.SET_NULL, blank=True, null=True, verbose_name=_("Brand"))
     category = models.ForeignKey(Category, models.SET_NULL, blank=True, null=True, verbose_name=_("Category"))
     name = models.CharField(_("Name"), max_length=255)
-    summary = models.TextField(_("Summary"), blank=True)
-    code = models.CharField(_("Code"), max_length=10, blank=True, default="")
+    description = models.TextField(_("Description"), blank=True)
+    sku = models.CharField(_("SKU"), max_length=10, unique=True, default=secrets.token_hex(5).upper(), editable=False)
+    # slug = models.SlugField(_("Slug"), unique=True)
     price = models.DecimalField(_("Price"), max_digits=15, decimal_places=3, default=0)
-    logo = VersatileImageField(upload_to=upload_path, blank=True, null=True)
+    logo = VersatileImageField(_("Logo"), upload_to=upload_path, blank=True, null=True)
     quantity = models.PositiveIntegerField(_("Quantity"), blank=True, null=True)
-    # rate = models.FloatField(_("Rate"), blank=True, null=True)
     meta_data = models.ManyToManyField("ProductMetaData", related_name="metadata")
+    is_available = models.BooleanField(_("Is available"), default=True)
     is_active = models.BooleanField(_("Is active"), default=True)
 
     class Meta:
@@ -70,17 +77,20 @@ class ProductMetaData(Monitor):
 
 
 class Order(Monitor):
+    summary = models.CharField(_("Summary"), max_length=225, blank=True, default="")
     sub_total = models.DecimalField(_("Sub total"), max_digits=15, decimal_places=3, default=0)
-    vat = models.DecimalField(_("Vat"), max_digits=5, decimal_places=2, default=0)
+    vat = models.DecimalField(_("VAT"), max_digits=5, decimal_places=2, default=0)
     total_amount = models.DecimalField(_("Total amount"), max_digits=15, decimal_places=3, default=0)
     discount = models.DecimalField(_("Discount"), max_digits=15, decimal_places=3, default=0)
     grand_total = models.DecimalField(_("Grand total"), max_digits=15, decimal_places=3, default=0)
     paid = models.DecimalField(_("Paid"), max_digits=15, decimal_places=3, default=0)
     due = models.DecimalField(_("Due"), max_digits=15, decimal_places=3, default=0)
     payment_type = models.CharField(_("Payment type"), choices=PAYMENT_TYPE, max_length=20, blank=True, default="")
-    payment_status = models.IntegerField()
-    status = models.IntegerField()
-
+    transaction_mode = models.CharField(_("Transaction mode"), choices=TRANSACTION_MODE, max_length=20, blank=True,
+                                        default="")
+    transaction_status = models.CharField(_("Transaction status"), choices=TRANSACTION_STATUS, max_length=20,
+                                          blank=True, default="")
+    order_status = models.CharField(_("Order status"), choices=ORDER_STATUS, max_length=20, blank=True, default="")
     updated_at = Hider()
 
     class Meta:
@@ -90,8 +100,8 @@ class Order(Monitor):
 
 
 class OrderItem(Monitor):
-    order = models.ForeignKey(Order, models.CASCADE, verbose_name="Order")
-    product = models.ForeignKey(Product, models.CASCADE, verbose_name="Product")
+    order = models.ForeignKey("Order", models.CASCADE, verbose_name=_("Order"))
+    product = models.ForeignKey("Product", models.CASCADE, verbose_name=_("Product"))
     quantity = models.PositiveIntegerField(_("Quantity"), validators=[MinValueValidator(1)])
     rate = models.DecimalField(_("Rate"), max_digits=15, decimal_places=3, default=0)
     total = models.DecimalField(_("Total"), max_digits=15, decimal_places=3, default=0)

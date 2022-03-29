@@ -44,7 +44,7 @@ class Monitor(models.Model):
             self.updated_by = user
             if not self.id:
                 self.created_by = user
-        super().save(*args, **kwargs)
+        super(Monitor).save(*args, **kwargs)
 
 
 class NoAuditSerializer(serializers.ModelSerializer):
@@ -75,7 +75,7 @@ def upload_path(instance, filename):
 def generate_string(size, return_type='string|pin'):
     chars = string.digits
     if return_type == 'string':
-        chars += string.ascii_lowercase
+        chars += string.ascii_uppercase
     return ''.join(random.choice(chars) for _ in range(size))
 
 
