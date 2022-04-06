@@ -11,25 +11,23 @@ from hakili.settings import env
 from lib.middleware import notifier
 
 
-# from werkzeug.security import generate_password_hash
-
-
 @receiver(post_save, sender=User)
 def create_user(sender, instance, created, **kwargs):
-    """MEMBER USER"INFO INIT"""
+    """Send email to created user"""
     if created:
-        notify_data = {
-            "action": "creation",
-            "e_subject": "{} - {}".format(env("APP_NAME"), _("User Creation")),
-            "e_receiver": instance.email,
-            "e_context": {
-                "api_version": "v1",
-                "user": instance,
-                "uid": urlsafe_base64_encode(force_bytes(instance.pk)),
-                "token": account_activation_token.make_token(instance),
-                "domain": Site.objects.get_current().domain,
+        if instance.is_superuser is False:
+            notify_data = {
+                "action": "creation",
+                "e_subject": "{} - {}".format(env("APP_NAME"), _("User Creation")),
+                "e_receiver": instance.email,
+                "e_context": {
+                    "api_version": "v1",
+                    "user": instance,
+                    "uid": urlsafe_base64_encode(force_bytes(instance.pk)),
+                    "token": account_activation_token.make_token(instance),
+                    "domain": Site.objects.get_current().domain,
+                }
             }
-        }
-        notifier(**notify_data)
+            notifier(**notify_data)
 
-        instance.save()
+            instance.save()

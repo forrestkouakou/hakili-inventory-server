@@ -44,7 +44,7 @@ class Monitor(models.Model):
             self.updated_by = user
             if not self.id:
                 self.created_by = user
-        super(Monitor).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
 
 class NoAuditSerializer(serializers.ModelSerializer):

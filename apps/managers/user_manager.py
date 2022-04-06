@@ -35,6 +35,7 @@ class UserManager(BaseUserManager):
                 )
                 company.save()
 
+        extra_fields.setdefault('email_confirmed', True)
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_active', True)
 

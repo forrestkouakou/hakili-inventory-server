@@ -26,7 +26,7 @@ ORDER_STATUS = Choices(
     ("returned", _("Returned")), ("complete", _("Complete"))
 )
 
-# TRANSACTION_TYPE = Choices(("credit", _("Credit")), ("debit", _("Debit")))
+TRANSACTION_TYPE = Choices(("credit", _("Credit")), ("debit", _("Debit")))
 
 TRANSACTION_MODE = Choices(
     ("offline", _("Offline")), ("cash_on_delivery", _("Cash On Delivery")),

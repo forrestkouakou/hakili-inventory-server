@@ -7,18 +7,26 @@ class BrandViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows product brand to be viewed or edited.
     """
-    queryset = Brand.objects.all()
+
     serializer_class = BrandSerializer
+
     # permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Brand.objects.filter(company=self.kwargs['company_pk'])
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows product category to be viewed or edited.
     """
-    queryset = Category.objects.all()
+
     serializer_class = CategorySerializer
+
     # permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Category.objects.filter(company=self.kwargs['company_pk'])
 
 
 class ProductViewSet(viewsets.ModelViewSet):

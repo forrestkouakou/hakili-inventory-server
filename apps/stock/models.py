@@ -3,11 +3,12 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from versatileimagefield.fields import VersatileImageField
 
-from lib.enums import PAYMENT_TYPE, TRANSACTION_MODE, TRANSACTION_STATUS, ORDER_STATUS
+from lib.enums import PAYMENT_TYPE, TRANSACTION_MODE, TRANSACTION_STATUS, ORDER_STATUS, TRANSACTION_TYPE
 from lib.middleware import Monitor, Hider, upload_path
 
 
 class Brand(Monitor):
+    company = models.ForeignKey("company.Company", models.CASCADE, verbose_name=_("Company"))
     label = models.CharField(_("Brand"), max_length=120)
     description = models.TextField(_("Description"), blank=True, default="")
     is_active = models.BooleanField(_("Is active"), default=True)
@@ -17,12 +18,14 @@ class Brand(Monitor):
         verbose_name = _("Brand")
         verbose_name_plural = _("Brands")
         ordering = ["label"]
+        unique_together = ('company', 'label',)
 
     def __str__(self):
         return self.label
 
 
 class Category(Monitor):
+    company = models.ForeignKey("company.Company", models.CASCADE, verbose_name=_("Company"))
     label = models.CharField(_("Label"), max_length=120)
     description = models.TextField(_("Description"), blank=True, default="")
     is_active = models.BooleanField(_("Is active"), default=True)
@@ -34,6 +37,7 @@ class Category(Monitor):
         verbose_name = _("Category")
         verbose_name_plural = _("Categories")
         ordering = ["label"]
+        unique_together = ('company', 'label',)
 
     def __str__(self):
         return self.label
@@ -59,6 +63,7 @@ class Product(Monitor):
         verbose_name = _("Product")
         verbose_name_plural = _("Product")
         ordering = ["name"]
+        unique_together = ('company', 'name',)
 
     def __str__(self):
         return self.name
@@ -84,6 +89,8 @@ class Order(Monitor):
     paid = models.DecimalField(_("Paid"), max_digits=15, decimal_places=3, default=0)
     due = models.DecimalField(_("Due"), max_digits=15, decimal_places=3, default=0)
     payment_type = models.CharField(_("Payment type"), choices=PAYMENT_TYPE, max_length=20, blank=True, default="")
+    transaction_type = models.CharField(_("Transaction type"), choices=TRANSACTION_TYPE, max_length=20, blank=True,
+                                        default="")
     transaction_mode = models.CharField(_("Transaction mode"), choices=TRANSACTION_MODE, max_length=20, blank=True,
                                         default="")
     transaction_status = models.CharField(_("Transaction status"), choices=TRANSACTION_STATUS, max_length=20,

@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 
 from apps.user.serializers import *
 
@@ -9,7 +9,7 @@ class UserPermissionViewSet(viewsets.ModelViewSet):
     """
     queryset = UserPermission.objects.all().order_by('id')
     serializer_class = UserPermissionSerializer
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -18,7 +18,7 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     serializer_class = UserSerializer
 
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         return get_user_model().people.user_list().filter(company=self.kwargs['company_pk'])

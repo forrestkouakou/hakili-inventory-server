@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 
 from apps.company.serializers import *
 from apps.core import apps_config
@@ -10,7 +10,7 @@ class CompanyTypeViewSet(viewsets.ModelViewSet):
     """
     queryset = CompanyType.objects.all()
     serializer_class = CompanyTypeSerializer
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
 
 class RoleViewSet(viewsets.ModelViewSet):
@@ -20,7 +20,7 @@ class RoleViewSet(viewsets.ModelViewSet):
     queryset = CompanyRole.objects.all().order_by('id')
     serializer_class = CompanyRoleReadSerializer
 
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_serializer_class(self):
         serializer_class = self.serializer_class
@@ -31,11 +31,11 @@ class RoleViewSet(viewsets.ModelViewSet):
         return serializer_class
 
 
-"""class CompanyRoleViewSet(viewsets.ModelViewSet):
-    API endpoint that allows a company roles to be viewed or edited.
+class CompanyRoleViewSet(viewsets.ModelViewSet):
+    """API endpoint that allows a company roles to be viewed or edited."""
     serializer_class = CompanyRoleReadSerializer
 
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
     def get_queryset(self):
         return CompanyRole.objects.filter(companies__id=self.kwargs['company_pk'])
 
@@ -45,7 +45,7 @@ class RoleViewSet(viewsets.ModelViewSet):
         if self.request.method in apps_config.WRITE_METHODS:
             serializer_class = CompanyRoleWriteSerializer
 
-        return serializer_class"""
+        return serializer_class
 
 
 class CompanyViewSet(viewsets.ModelViewSet):
@@ -56,7 +56,7 @@ class CompanyViewSet(viewsets.ModelViewSet):
     queryset = Company.objects.company_list()
     serializer_class = CompanyReadSerializer
 
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_serializer_class(self):
         serializer_class = self.serializer_class
@@ -73,4 +73,4 @@ class CompanyDetailsViewSet(viewsets.ModelViewSet):
     """
     queryset = CompanyDetails.objects.all()
     serializer_class = CompanyDetailsSerializer
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]

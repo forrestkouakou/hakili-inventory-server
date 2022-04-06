@@ -12,7 +12,9 @@ def set_sku(sender, instance, **kwargs):
         instance.sku = secrets.token_hex(5).upper()
 
 
+"""
 @receiver(pre_save, sender=Product)
 def set_product_availability(sender, instance, **kwargs):
     if instance.quantity - instance.orderitem.quantity == 0:
         instance.is_available = False
+"""

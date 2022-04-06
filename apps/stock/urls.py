@@ -3,8 +3,8 @@ from rest_framework_nested import routers
 from .views import *
 
 router = routers.SimpleRouter()
-router.register("brands", BrandViewSet)
-router.register("categories", CategoryViewSet)
+router.register("brands", BrandViewSet, basename="brand")
+router.register("categories", CategoryViewSet, basename="category")
 router.register("products", ProductViewSet, basename="product")
 router.register("orders", OrderViewSet)
 router.register("order-items", OrderItemViewSet)

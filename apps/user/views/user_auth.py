@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.core import signing
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.template.response import TemplateResponse
 from django.utils.encoding import force_str
@@ -63,6 +63,8 @@ class ActivateAccountView(TemplateView):
                     user.email_confirmed = True
                     user.is_active = True
                     user.save()
+                return render(request, "user/activate_account.html", {"is_activated": "Is activated"})
+                return JsonResponse(request.path_info)
                 return HttpResponseRedirect(request.path_info)
             except (TypeError, ValueError, OverflowError, KeyError, User.DoesNotExist):
                 messages.error(request, _("User not found"))

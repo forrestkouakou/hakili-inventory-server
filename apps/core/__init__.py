@@ -1,7 +1,12 @@
+import functools
 import os
 
 from django.conf import settings
 from django.contrib.auth.models import Permission
+from rest_framework import status
+from rest_framework.response import Response
+
+from apps.company.models import Company
 
 
 class AppConfig:
@@ -34,6 +39,19 @@ class AppConfig:
         if method_type is not None:
             pass
 
+    @staticmethod
+    def company_404_handler(func):
+        @functools.wraps(func)
+        def wrapper(self):
+            try:
+                company_id = self.kwargs.get("company_pk", 1)
+                Company.objects.company_list().get(id=company_id)
+                func(self)
+                return func(self)
+            except Company.DoesNotExist:
+                return {"self": "jk"}
+
+        return wrapper
 
 
 apps_config = AppConfig()

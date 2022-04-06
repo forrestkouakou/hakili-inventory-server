@@ -1,6 +1,10 @@
 from django_restql.mixins import DynamicFieldsMixin
+from drf_writable_nested import WritableNestedModelSerializer
 from rest_framework import serializers
+from rest_framework.relations import PrimaryKeyRelatedField
+from rest_framework_nested.relations import NestedHyperlinkedRelatedField
 
+from apps.company.models import Company
 from apps.company.serializers import CompanyReadSerializer
 from apps.stock.models import *
 
@@ -8,13 +12,13 @@ from apps.stock.models import *
 class BrandSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
     class Meta:
         model = Brand
-        fields = ("id", "label", "is_active",)
+        fields = ("id", "company", "label", "description", "is_active",)
 
 
 class CategorySerializer(DynamicFieldsMixin, serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ("id", "label", "is_active",)
+        fields = ("id", "company", "label", "description", "is_active",)
 
 
 class ProductMetaDataSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
