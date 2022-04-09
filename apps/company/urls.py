@@ -3,7 +3,7 @@ from rest_framework_nested import routers
 
 from apps.user.views import UserViewSet
 from .views import *
-from ..stock.views import BrandViewSet, CategoryViewSet, ProductViewSet
+from ..stock.views import BrandViewSet, CategoryViewSet, ProductViewSet, OrderViewSet
 
 router = routers.SimpleRouter()
 router.register("company-types", CompanyTypeViewSet)
@@ -18,6 +18,7 @@ companies_router.register(r"users", UserViewSet, basename="company-users")
 companies_router.register(r"brands", BrandViewSet, basename="company-brands")
 companies_router.register(r"categories", CategoryViewSet, basename="company-categories")
 companies_router.register(r"products", ProductViewSet, basename="company-products")
+companies_router.register(r"orders", OrderViewSet, basename="company-orders")
 
 urlpatterns = [
     path(r"", include(router.urls)),

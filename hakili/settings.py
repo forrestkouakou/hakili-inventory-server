@@ -63,6 +63,7 @@ INSTALLED_APPS = [
 
     # Apps
     'apps.user.apps.UserConfig',
+    'apps.core.apps.CoreConfig',
     'apps.company.apps.CompanyConfig',
     # 'apps.product.apps.ProductConfig',
     'apps.stock.apps.StockConfig',

@@ -42,9 +42,8 @@ class Company(Monitor):
     name = models.CharField(_("Name"), max_length=120, unique=True)
     domain = models.CharField(_("Domain"), max_length=120, blank=True)
     logo = VersatileImageField(upload_to=upload_path, blank=True, null=True)
-    status = models.BooleanField(_("Status"), choices=STATUS_CHOICES, default=True, null=True)
     roles = models.ManyToManyField("CompanyRole", related_name="companies", blank=True)
-    is_active = models.BooleanField(_("Is active"), default=False)
+    is_active = models.BooleanField(_("Is active"), choices=STATUS_CHOICES, default=False)
 
     objects = CompanyQuerySet.as_manager()
 

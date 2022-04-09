@@ -30,7 +30,7 @@ schema_view = get_schema_view(
 urlpatterns = [
     re_path(r"^api/(?P<version>(v1|v2))/", include("apps.company.urls"), name="company"),
     re_path(r"^api/(?P<version>(v1|v2))/", include("apps.user.urls"), name="user"),
-    re_path(r"^api/(?P<version>(v1|v2))/", include("apps.stock.urls"), name="stock"),
+    re_path(r"^api/(?P<version>(v1|v2))/stock/", include("apps.stock.urls"), name="stock"),
 
     re_path(r"^api/(?P<version>(v1|v2))/token/", jwt_views.TokenObtainPairView.as_view(), name="token_obtain_pair"),
     re_path(r"^api/(?P<version>(v1|v2))/token/refresh/", jwt_views.TokenRefreshView.as_view(), name="token_refresh"),

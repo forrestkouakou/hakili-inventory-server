@@ -5,6 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from versatileimagefield.fields import VersatileImageField
 
 from apps.managers import UserManager, UserQuerySet
+from lib.enums import STATUS_CHOICES
 from lib.middleware import Monitor, upload_path
 
 
@@ -16,7 +17,7 @@ class User(AbstractBaseUser, PermissionsMixin, Monitor):
     username = models.CharField(_("Username"), max_length=30)
     avatar = VersatileImageField(_("Avatar"), upload_to=upload_path, blank=True, null=True)
     phone = models.CharField(_("Phone number"), max_length=15, blank=True, default="")
-    is_active = models.BooleanField(_("Is active"), default=False)
+    is_active = models.BooleanField(_("Is active"), choices=STATUS_CHOICES, default=False)
     is_admin = models.BooleanField(_("Is admin"), default=False)
     date_joined = models.DateTimeField(default=timezone.now)
     email_confirmed = models.BooleanField(_("Email confirmed"), default=False)

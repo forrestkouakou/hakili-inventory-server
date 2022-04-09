@@ -19,7 +19,6 @@ class RoleViewSet(viewsets.ModelViewSet):
     """
     queryset = CompanyRole.objects.all().order_by('id')
     serializer_class = CompanyRoleReadSerializer
-
     permission_classes = [permissions.IsAuthenticated]
 
     def get_serializer_class(self):
@@ -32,10 +31,12 @@ class RoleViewSet(viewsets.ModelViewSet):
 
 
 class CompanyRoleViewSet(viewsets.ModelViewSet):
-    """API endpoint that allows a company roles to be viewed or edited."""
+    """
+    API endpoint that allows a company roles to be viewed or edited.
+    """
     serializer_class = CompanyRoleReadSerializer
-
     permission_classes = [permissions.IsAuthenticated]
+
     def get_queryset(self):
         return CompanyRole.objects.filter(companies__id=self.kwargs['company_pk'])
 

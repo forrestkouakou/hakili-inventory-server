@@ -19,29 +19,29 @@ WEEK_DAY = Choices(
     ("sunday", "Dimanche")
 )
 
-ORDER_STATUS = Choices(
-    ("new", _("New")), ("checkout", _("Checkout")),
-    ("paid", _("Paid")), ("failed", _("Failed")),
-    ("shipped", _("Shipped")), ("delivered", _("Delivered")),
-    ("returned", _("Returned")), ("complete", _("Complete"))
+PAYMENT_TYPE = Choices(
+    ("cash", _("Cash")), ("transfer", _("Transfer")),
+    ("card", _("Card")), ("check", _("Check"))
 )
 
-TRANSACTION_TYPE = Choices(("credit", _("Credit")), ("debit", _("Debit")))
+TNX_TYPE = Choices(("credit", _("Credit")), ("debit", _("Debit")))
 
-TRANSACTION_MODE = Choices(
+TNX_MODE = Choices(
     ("offline", _("Offline")), ("cash_on_delivery", _("Cash On Delivery")),
     ("cheque", _("Cheque")), ("draft", _("Draft")),
     ("wired", _("Wired")), ("online", _("Online"))
 )
 
-TRANSACTION_STATUS = Choices(
+TNX_STATUS = Choices(
     ("new", _("New")), ("cancelled", _("Cancelled")),
     ("failed", _("Failed")), ("pending", _("Pending")),
     ("declined", _("Declined")), ("rejected", _("Rejected")),
     ("success", _("Success"))
 )
 
-PAYMENT_TYPE = Choices(
-    ("cash", _("Cash")), ("transfer", _("Transfer")),
-    ("card", _("Card")), ("check", _("Check"))
+ORDER_STATUS = Choices(
+    ("new", _("New")), ("checkout", _("Checkout")),
+    ("paid", _("Paid")), ("failed", _("Failed")),
+    ("shipped", _("Shipped")), ("delivered", _("Delivered")),
+    ("returned", _("Returned")), ("complete", _("Complete"))
 )

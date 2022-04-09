@@ -1,12 +1,10 @@
-import functools
 import os
 
 from django.conf import settings
-from django.contrib.auth.models import Permission
-from rest_framework import status
-from rest_framework.response import Response
 
-from apps.company.models import Company
+
+# from apps.company.models import Company
+# from django.contrib.auth.models import Permission
 
 
 class AppConfig:
@@ -32,13 +30,14 @@ class AppConfig:
             'apps.user.urls',
         ]
 
-    def app_permissions(self):
-        return Permission.objects.exclude(content_type__app_label__in=self.django_apps)
+    # def app_permissions(self):
+    # return Permission.objects.exclude(content_type__app_label__in=self.django_apps)
 
     def get_method_type(self, method_type="read|write"):
         if method_type is not None:
             pass
 
+    """
     @staticmethod
     def company_404_handler(func):
         @functools.wraps(func)
@@ -52,6 +51,7 @@ class AppConfig:
                 return {"self": "jk"}
 
         return wrapper
+    """
 
 
 apps_config = AppConfig()

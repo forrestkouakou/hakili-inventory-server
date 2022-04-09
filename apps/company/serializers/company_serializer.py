@@ -23,7 +23,7 @@ class CompanyRoleReadSerializer(DynamicFieldsMixin, serializers.ModelSerializer)
         fields = ("id", "label", "permissions",)
 
 
-class CompanyRoleWriteSerializer(serializers.ModelSerializer):
+class CompanyRoleWriteSerializer(WritableNestedModelSerializer):
     permissions = PrimaryKeyRelatedField(many=True, required=False, queryset=UserPermission.objects.all())
 
     class Meta:
@@ -59,13 +59,13 @@ class CompanyReadSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
             "name",
             "domain",
             "logo",
-            "status",
             "company_details",
+            "is_active",
             "roles",
         )
 
 
-class CompanyWriteSerializer(DynamicFieldsMixin, WritableNestedModelSerializer):
+class CompanyWriteSerializer(WritableNestedModelSerializer):
     company_type = PrimaryKeyRelatedField(many=False, required=False, queryset=CompanyType.objects.all())
     company_details = CompanyDetailsSerializer(many=False, required=False)
     roles = PrimaryKeyRelatedField(many=True, required=False, queryset=CompanyRole.objects.all())

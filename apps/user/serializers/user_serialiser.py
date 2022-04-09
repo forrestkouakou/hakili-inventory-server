@@ -7,15 +7,16 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
 # from apps.company.serializers import CompanySerializer
+from apps.core.models import Installation
 from apps.user.models import UserPermission
 from lib.middleware import NoAuditSerializer
 
 
 class RegisterSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(
-            required=True,
-            validators=[UniqueValidator(queryset=get_user_model().objects.all())]
-            )
+        required=True,
+        validators=[UniqueValidator(queryset=get_user_model().objects.all())]
+    )
 
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
     password2 = serializers.CharField(write_only=True, required=True)
@@ -67,3 +68,9 @@ class UserSerializer(DynamicFieldsMixin, NoAuditSerializer):
             "username": {"required": False, "write_only": True},
             "email": {"required": False}
         }
+
+
+class InstallationSerializer(DynamicFieldsMixin, NoAuditSerializer):
+    class Meta:
+        model = Installation
+        fields = "__all__"

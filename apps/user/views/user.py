@@ -22,3 +22,12 @@ class UserViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return get_user_model().people.user_list().filter(company=self.kwargs['company_pk'])
+
+
+class InstallationViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows installation to be viewed or edited.
+    """
+    queryset = Installation.objects.all().order_by('datetime')
+    serializer_class = InstallationSerializer
+    permission_classes = [permissions.IsAuthenticated]
