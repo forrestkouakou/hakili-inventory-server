@@ -1,10 +1,11 @@
 import os
 
 from django.conf import settings
-
-
 # from apps.company.models import Company
 # from django.contrib.auth.models import Permission
+from django.db import IntegrityError
+
+from lib.config import django_logger
 
 
 class AppConfig:
@@ -52,6 +53,15 @@ class AppConfig:
 
         return wrapper
     """
+
+    @staticmethod
+    def save_handler(klass_object):
+        try:
+            klass_object.save()
+            return klass_object
+        except (IntegrityError, ValueError, KeyError) as e:
+            django_logger.error("{}".format(e))
+            return False
 
 
 apps_config = AppConfig()

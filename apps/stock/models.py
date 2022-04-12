@@ -58,13 +58,14 @@ class Product(Monitor):
     category = models.ForeignKey(Category, models.SET_NULL, blank=True, null=True, verbose_name=_('Category'))
     name = models.CharField(_('Name'), max_length=255)
     description = models.TextField(_('Description'), blank=True)
-    sku = models.CharField(_('SKU'), max_length=10, unique=True, default='', editable=False)
+    sku = models.CharField(_('SKU'), max_length=15, unique=True, default='', editable=False)
     logo = VersatileImageField(_('Logo'), upload_to=upload_path, blank=True, null=True)
     # slug = models.SlugField(_('Slug'), unique=True)
     purchase_price = models.DecimalField(_('Unit purchase price'), max_digits=15, decimal_places=3, default=0)
     selling_price = models.DecimalField(_('Unit selling price'), max_digits=15, decimal_places=3, default=0)
-    alert_threshold = models.PositiveIntegerField(_('Alert threshold'), blank=True, null=True)
     quantity = models.PositiveIntegerField(_('Quantity'), default=0)
+    max_alert_threshold = models.PositiveIntegerField(_('Max alert threshold'), blank=True, null=True)
+    min_alert_threshold = models.PositiveIntegerField(_('Min alert threshold'), blank=True, null=True)
     metadata = models.ManyToManyField('ProductMetaData', related_name='products', blank=True)
     is_available = models.BooleanField(_('Is available'), default=True)
     is_active = models.BooleanField(_('Is active'), choices=STATUS_CHOICES, default=True)
@@ -210,7 +211,7 @@ class OrderItem(Monitor):
         _('Price'),
         max_digits=15,
         decimal_places=3,
-        default=0,
+        default=None,
         help_text='The price of the product while purchasing it.'
     )
     discount = models.DecimalField(
@@ -247,7 +248,10 @@ class Transaction(Monitor):
     user = models.ForeignKey(
         'user.User',
         models.DO_NOTHING,
-        help_text='The user id to identify the user associated with the transaction.'
+        blank=True,
+        null=True,
+        default=True,
+        help_text='The user id to identify the user associated with the transaction.',
     )
     order = models.ForeignKey(
         'Order',

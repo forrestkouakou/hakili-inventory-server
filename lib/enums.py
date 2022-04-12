@@ -21,7 +21,14 @@ WEEK_DAY = Choices(
 
 PAYMENT_TYPE = Choices(
     ("cash", _("Cash")), ("transfer", _("Transfer")),
-    ("card", _("Card")), ("check", _("Check"))
+    ("card", _("Card")), ("cheque", _("Cheque"))
+)
+
+ORDER_STATUS = Choices(
+    ("new", _("New")), ("checkout", _("Checkout")),
+    ("paid", _("Paid")), ("failed", _("Failed")),
+    ("shipped", _("Shipped")), ("delivered", _("Delivered")),
+    ("returned", _("Returned")), ("complete", _("Complete"))
 )
 
 TNX_TYPE = Choices(("credit", _("Credit")), ("debit", _("Debit")))
@@ -37,11 +44,4 @@ TNX_STATUS = Choices(
     ("failed", _("Failed")), ("pending", _("Pending")),
     ("declined", _("Declined")), ("rejected", _("Rejected")),
     ("success", _("Success"))
-)
-
-ORDER_STATUS = Choices(
-    ("new", _("New")), ("checkout", _("Checkout")),
-    ("paid", _("Paid")), ("failed", _("Failed")),
-    ("shipped", _("Shipped")), ("delivered", _("Delivered")),
-    ("returned", _("Returned")), ("complete", _("Complete"))
 )
