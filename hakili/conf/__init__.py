@@ -1,8 +1,8 @@
 from .drf import *
 from .email import *
 
-if settings.DEBUG:
-    from .logging import *
+# if settings.DEBUG:
+    # from .logging import *
 
 import dj_database_url
 

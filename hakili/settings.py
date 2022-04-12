@@ -116,6 +116,7 @@ DATABASES = {
 
     # 'inventory': env.db_url('MYSQL_URL'),
 
+    """
     'inventory': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'inventory',
@@ -124,6 +125,7 @@ DATABASES = {
         'HOST': '127.0.0.1',
         'PORT': '3306',
     },
+    """
 
     # read os.environ['SQLITE_URL']
     'extra': env.db_url(
