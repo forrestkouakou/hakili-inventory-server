@@ -17,6 +17,5 @@ files/
 public/
 staticfiles/
 db.sqlite3
-finance/
 inventory/
 location/

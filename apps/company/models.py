@@ -75,6 +75,7 @@ class CompanyDetails(Monitor):
     phone = models.CharField(_("Phone number"), max_length=60, blank=True, default="")
     fax = models.CharField(_("Faux"), max_length=60, blank=True, default="")
     post_code = models.CharField(_("Post code"), max_length=60, blank=True, default="")
+    config = models.JSONField(_('Company configs'), blank=True, default=dict())
 
     class Meta:
         app_label = "company"

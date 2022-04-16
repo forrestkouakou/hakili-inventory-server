@@ -43,6 +43,7 @@ class CompanyDetailsSerializer(CountryFieldMixin, DynamicFieldsMixin, serializer
             "phone",
             "fax",
             "post_code",
+            "config"
         )
 
 
