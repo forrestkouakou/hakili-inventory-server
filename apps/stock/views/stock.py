@@ -95,29 +95,12 @@ class OrderViewSet(viewsets.ModelViewSet):
                 product_updated = False
                 order_processed = False
 
-                if tnx_type == 'credit':
-                    product_updated = tnx.product_add_process(
-                        quantity=quantity,
-                        product=product
-                    )
-                    product_processed_message = 'product_add_process SUCCESSFUL'
-
-                if tnx_type == 'debit':
-                    if not product.is_available:
-                        context = "UNAVAILABLE_PRODUCT"
-                        return Response({'status': False, 'context': context}, status=status.HTTP_404_NOT_FOUND)
-
-                    product_updated = tnx.product_remove_process(
-                        quantity=quantity,
-                        product=product
-                    )
-                    product_processed_message = 'product_remove_process SUCCESSFUL'
-
                 if product_updated:
                     # TODO: find a better place to put successful messages
                     django_logger.info(product_processed_message)
 
                     order_processed = tnx.order_create_process(
+                        tnx_type=tnx_type,
                         quantity=quantity,
                         order=data.get('order'),
                         product=product

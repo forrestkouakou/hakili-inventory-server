@@ -21,6 +21,7 @@ class User(AbstractBaseUser, PermissionsMixin, Monitor):
     is_admin = models.BooleanField(_("Is admin"), default=False)
     date_joined = models.DateTimeField(default=timezone.now)
     email_confirmed = models.BooleanField(_("Email confirmed"), default=False)
+    role = models.OneToOneField("company.CompanyRole", models.SET_NULL, related_name="user_role", null=True, verbose_name=_('Role'))
 
     objects = UserManager()
     people = UserQuerySet.as_manager()
@@ -64,19 +65,3 @@ class User(AbstractBaseUser, PermissionsMixin, Monitor):
         """Is the user a member of staff?"""
         # Simplest possible answer: All admins are staff
         return self.is_admin
-
-
-class UserPermission(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    name = models.CharField(max_length=255, unique=True)
-    codename = models.CharField(max_length=100, unique=True)
-
-    class Meta:
-        app_label = "user"
-        db_table = 'user_permission'
-        verbose_name = _("User permission")
-        verbose_name_plural = _("Users permissions")
-        ordering = ['name']
-
-    def __str__(self):
-        return self.name

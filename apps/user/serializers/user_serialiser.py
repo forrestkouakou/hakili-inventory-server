@@ -5,12 +5,35 @@ from django.utils.translation import gettext_lazy
 from django_restql.mixins import DynamicFieldsMixin
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
-
 # from apps.company.serializers import CompanySerializer
 # from apps.company.serializers import CompanyReadSerializer
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
+from apps.company.serializers import CompanyReadSerializer, CompanyRoleReadSerializer
 from apps.core.models import Installation
-from apps.user.models import UserPermission
 from lib.middleware import NoAuditSerializer
+
+
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+
+    @classmethod
+    def get_token(cls, user):
+        token = super(MyTokenObtainPairSerializer, cls).get_token(user)
+
+        # Add custom claims
+        token['user'] = UserReadSerializer(user).data
+        # token['company'] = user.company
+        # token['first_name'] = user.first_name
+        # token['last_name'] = user.last_name
+        # token['email'] = user.email
+        # token['username'] = user.username
+        # token['avatar'] = user.avatar
+        # token['phone'] = user.phone
+        # token['is_active'] = user.is_active
+        # token['is_admin'] = user.is_admin
+        # token['date_joined'] = user.date_joined
+        # token['email_confirmed'] = user.email_confirmed
+        return token
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -48,12 +71,6 @@ class RegisterSerializer(serializers.ModelSerializer):
         return user
 
 
-class UserPermissionSerializer(DynamicFieldsMixin, NoAuditSerializer):
-    class Meta:
-        model = UserPermission
-        fields = "__all__"
-
-
 class UserSerializer(DynamicFieldsMixin, NoAuditSerializer):
     # company = CompanySerializer(many=False, read_only=True)
 
@@ -72,7 +89,8 @@ class UserSerializer(DynamicFieldsMixin, NoAuditSerializer):
 
 
 class UserReadSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
-    # company = CompanyReadSerializer()
+    company = CompanyReadSerializer()
+    role = CompanyRoleReadSerializer()
     # permissions = UserPermissionSerializer(many=True)
 
     class Meta:
@@ -90,7 +108,8 @@ class UserReadSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
             "is_admin",
             "date_joined",
             "email_confirmed",
-            "permissions",
+            "role",
+            # "permissions",
         )
 
 

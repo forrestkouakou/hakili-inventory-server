@@ -4,15 +4,6 @@ from apps.core import apps_config
 from apps.user.serializers import *
 
 
-class UserPermissionViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows user permissions to be viewed or edited.
-    """
-    queryset = UserPermission.objects.all().order_by('id')
-    serializer_class = UserPermissionSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-
 class UserViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows user to be viewed or edited.

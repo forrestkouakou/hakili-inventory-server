@@ -8,6 +8,7 @@ from ..stock.views import BrandViewSet, CategoryViewSet, ProductViewSet, OrderVi
 router = routers.SimpleRouter()
 router.register("company-types", CompanyTypeViewSet)
 router.register("company-roles", RoleViewSet)
+router.register("company-permissions", CompanyPermissionViewSet)
 router.register("companies", CompanyViewSet)
 router.register("company-details", CompanyDetailsViewSet)
 

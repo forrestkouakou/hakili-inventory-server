@@ -8,11 +8,19 @@ from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
+from rest_framework.permissions import AllowAny
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 from apps.user.forms import CreatePasswordForm
+from apps.user.serializers import MyTokenObtainPairSerializer
 from apps.user.token import account_activation_token
 
 User = get_user_model()
+
+
+class MyObtainTokenPairView(TokenObtainPairView):
+    permission_classes = (AllowAny,)
+    serializer_class = MyTokenObtainPairSerializer
 
 
 class ActivateAccountView(TemplateView):

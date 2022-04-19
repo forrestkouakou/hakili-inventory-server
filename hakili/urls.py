@@ -6,10 +6,12 @@ from django.utils.translation import gettext_lazy
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
-from rest_framework_simplejwt import views as jwt_views
+from rest_framework_simplejwt.views import (
+    TokenRefreshView,
+)
 
 from apps.core import views
-from apps.user.views import ActivateAccountView
+from apps.user.views import ActivateAccountView, MyObtainTokenPairView
 
 admin.site.site_title = gettext_lazy("Administration HAKILI")
 admin.site.site_header = gettext_lazy("Administration HAKILI")
@@ -32,8 +34,8 @@ urlpatterns = [
     re_path(r"^api/(?P<version>(v1|v2))/", include("apps.user.urls"), name="user"),
     re_path(r"^api/(?P<version>(v1|v2))/stock/", include("apps.stock.urls"), name="stock"),
 
-    re_path(r"^api/(?P<version>(v1|v2))/token/", jwt_views.TokenObtainPairView.as_view(), name="token_obtain_pair"),
-    re_path(r"^api/(?P<version>(v1|v2))/token/refresh/", jwt_views.TokenRefreshView.as_view(), name="token_refresh"),
+    re_path(r"^api/(?P<version>(v1|v2))/token/", MyObtainTokenPairView.as_view(), name="token_obtain_pair"),
+    re_path(r"^api/(?P<version>(v1|v2))/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 
     re_path(r"^activate-account/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,64})",
             ActivateAccountView.as_view(), name="activate-account"),

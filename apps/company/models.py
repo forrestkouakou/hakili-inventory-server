@@ -22,9 +22,24 @@ class CompanyType(Monitor):
         return self.label
 
 
+class CompanyPermission(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+    codename = models.CharField(max_length=100, unique=True)
+
+    class Meta:
+        app_label = "company"
+        db_table = 'company_permission'
+        verbose_name = _("Company permission")
+        verbose_name_plural = _("Companies permissions")
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
+
+
 class CompanyRole(Monitor):
     label = models.CharField(_("Role"), max_length=120, unique=True)
-    permissions = models.ManyToManyField("user.UserPermission")
+    permissions = models.ManyToManyField("CompanyPermission")
 
     class Meta:
         app_label = "company"
@@ -75,7 +90,7 @@ class CompanyDetails(Monitor):
     phone = models.CharField(_("Phone number"), max_length=60, blank=True, default="")
     fax = models.CharField(_("Faux"), max_length=60, blank=True, default="")
     post_code = models.CharField(_("Post code"), max_length=60, blank=True, default="")
-    config = models.JSONField(_('Company configs'), blank=True, default=dict())
+    config = models.JSONField(_('Company configs'), blank=True, default=dict)
 
     class Meta:
         app_label = "company"

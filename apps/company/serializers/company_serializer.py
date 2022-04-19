@@ -5,8 +5,6 @@ from rest_framework import serializers
 from rest_framework.relations import PrimaryKeyRelatedField
 
 from apps.company.models import *
-from apps.user.models import UserPermission
-from apps.user.serializers import UserPermissionSerializer
 
 
 class CompanyTypeSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
@@ -15,8 +13,18 @@ class CompanyTypeSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
         fields = ("id", "label",)
 
 
+class CompanyPermissionSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
+    class Meta:
+        model = CompanyPermission
+        fields = (
+            'id',
+            'name',
+            'codename'
+        )
+
+
 class CompanyRoleReadSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
-    permissions = UserPermissionSerializer(many=True)
+    permissions = CompanyPermissionSerializer(many=True)
 
     class Meta:
         model = CompanyRole
@@ -24,7 +32,7 @@ class CompanyRoleReadSerializer(DynamicFieldsMixin, serializers.ModelSerializer)
 
 
 class CompanyRoleWriteSerializer(WritableNestedModelSerializer):
-    permissions = PrimaryKeyRelatedField(many=True, required=False, queryset=UserPermission.objects.all())
+    permissions = PrimaryKeyRelatedField(many=True, required=False, queryset=CompanyPermission.objects.all())
 
     class Meta:
         model = CompanyRole

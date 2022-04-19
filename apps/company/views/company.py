@@ -13,6 +13,15 @@ class CompanyTypeViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
 
+class CompanyPermissionViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows permissions to be viewed or edited.
+    """
+    queryset = CompanyPermission.objects.all().order_by('id')
+    serializer_class = CompanyPermissionSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
 class RoleViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows all roles to be viewed or edited.

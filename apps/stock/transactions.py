@@ -43,17 +43,25 @@ class TransactionProcess:
         return product
 
     @staticmethod
-    def order_create_process(quantity, order, product):
+    def order_create_process(tnx_type, quantity, order, product):
         # TODO: Verify that the price is a Decimal value
 
         django_logger.info("order_create_process INITIALIZE")
-        # Let's get order info
+        # Let's check if the price is set
         price = order.get('price')
         try:
             price = Decimal(price)
-            # Check if the price is specified in the order or not and compute de sub_total with it
-            if price is not Decimal(0):
-                price = product.purchase_price
+            print("price ==> {}".format(price))
+            # Check if the price is specified in the order or not and compute the sub_total with it
+            if price is Decimal(0):
+                if tnx_type == 'credit':
+                    price = product.purchase_price
+                    print('credit initiated')
+                    django_logger.info('credit initiated')
+                if tnx_type == 'debit':
+                    price = product.selling_price
+                    print('debit initiated')
+                    django_logger.info('debit initiated')
 
             sub_total = quantity * price
 
