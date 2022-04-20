@@ -71,12 +71,16 @@ class OrderViewSet(viewsets.ModelViewSet):
         product_id = data.get('product')
 
         # TODO: Add a try/except block here
+        # Get the product information
         product = Product.objects.filter(pk=product_id).first()
 
+        # Make sure the company_id received matches the company the product belongs to
         if product.company_id == company_pk and all([company_pk, product.company_id]) is True:
             transaction = data.get('transaction')
             order = data.get('order')
             quantity = order.get('quantity')
+            # Try to convert the quantity received to a non-nullable and positive integer
+            #   throw an error if the cast is not possible
             try:
                 quantity = abs(int(quantity))
                 if quantity <= 0:
@@ -90,10 +94,33 @@ class OrderViewSet(viewsets.ModelViewSet):
             if transaction.get('type') in TNX_TYPE:
                 tnx_type = transaction.get('type')
 
-                # Initiate Product and Order/OrderItem values to false
+                # Initiate processes to false
                 product_processed_message = ''
                 product_updated = False
                 order_processed = False
+
+                if tnx_type == 'credit':
+                    product_updated = tnx.product_add_process(
+                        quantity=quantity,
+                        product=product
+                    )
+                    product_processed_message = 'product_add_process SUCCESSFUL'
+
+                if tnx_type == 'debit':
+                    if not product.is_available:
+                        context = "UNAVAILABLE_PRODUCT"
+                        return Response({'status': False, 'context': context}, status=status.HTTP_404_NOT_FOUND)
+
+                    if product.quantity - quantity < 0:
+                        context = "INSUFFICIENT_PRODUCT_QUANTITY"
+                        return Response({'status': False, 'context': context}, status=status.HTTP_404_NOT_FOUND)
+
+                    product_updated = tnx.product_remove_process(
+                        quantity=quantity,
+                        product=product
+                    )
+                    product_processed_message = 'product_remove_process SUCCESSFUL'
+
 
                 if product_updated:
                     # TODO: find a better place to put successful messages

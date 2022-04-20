@@ -102,7 +102,8 @@ class Order(Monitor):
     company = models.ForeignKey(
         'company.Company',
         models.CASCADE,
-        verbose_name=_('Company')
+        verbose_name=_('Company'),
+        help_text='The company the order is related to'
     )
     sub_total = models.DecimalField(
         _('Sub total'),

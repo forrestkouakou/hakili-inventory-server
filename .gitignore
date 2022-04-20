@@ -19,3 +19,4 @@ staticfiles/
 db.sqlite3
 inventory/
 location/
+hakili/conf/__init__.py

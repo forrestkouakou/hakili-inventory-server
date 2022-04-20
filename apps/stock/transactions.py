@@ -17,36 +17,42 @@ class TransactionProcess:
         #   available_qty = product.quantity
         #   available_qty + quantity should is > max_alert_threshold
 
+        # Add the given quantity to what we have in stock
         product.quantity = F('quantity') + quantity
+        # Verify if the product is not marked as non-available and make it available by adding some products
         if not product.is_available:
             product.is_available = True
+        # Save the product
         core.save_handler(product)
-        product.refresh_from_db()
         return product
 
     @staticmethod
     def product_remove_process(quantity, product):
+        # Initialize the logger
         django_logger.info("product_remove_process INITIALIZE")
         # TODO: Verify if not min_alert_threshold when removing products
         #   available_qty = product.quantity
         #   available_qty - quantity should is < min_alert_threshold
-        if product.quantity - quantity < 0:
-            return {}
 
+        # Subtract the given quantity of what we have in stock
         product.quantity = F('quantity') - quantity
+        # Save the product
         core.save_handler(product)
-        product.refresh_from_db()
 
+        # Verify if the quantity left for the product is null and mark it as available if yes
+        # Find another place for this block :(
         if product.quantity == 0:
             product.is_available = False
-            core.save_handler(product)
+            core.save_handler(product)  # Save the product
         return product
 
     @staticmethod
     def order_create_process(tnx_type, quantity, order, product):
         # TODO: Verify that the price is a Decimal value
 
+        # Initialize the logger
         django_logger.info("order_create_process INITIALIZE")
+
         # Let's check if the price is set
         price = order.get('price')
         try:
