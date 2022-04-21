@@ -1,3 +1,4 @@
+import uuid
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.utils import timezone
@@ -21,7 +22,8 @@ class User(AbstractBaseUser, PermissionsMixin, Monitor):
     is_admin = models.BooleanField(_("Is admin"), default=False)
     date_joined = models.DateTimeField(default=timezone.now)
     email_confirmed = models.BooleanField(_("Email confirmed"), default=False)
-    role = models.OneToOneField("company.CompanyRole", models.SET_NULL, related_name="user_role", null=True, verbose_name=_('Role'))
+    role = models.OneToOneField("company.CompanyRole", models.SET_NULL, related_name="user_role", null=True,
+                                verbose_name=_('Role'))
 
     objects = UserManager()
     people = UserQuerySet.as_manager()
@@ -65,3 +67,23 @@ class User(AbstractBaseUser, PermissionsMixin, Monitor):
         """Is the user a member of staff?"""
         # Simplest possible answer: All admins are staff
         return self.is_admin
+
+
+class Installation(models.Model):
+    installation_id = models.UUIDField(_("Installation ID"), default=uuid.uuid4, editable=False)
+    fcm_token = models.TextField(_("FCM token"), blank=True, default="")
+    device_name = models.CharField(_("Device name"), max_length=60, blank=True, default="")
+    device_model = models.CharField(_("Device model"), max_length=60, blank=True, default="")
+    device_version = models.CharField(_("Device version"), max_length=60, blank=True, default="")
+    country_location = models.CharField(_("Country location"), max_length=60, blank=True, default="")
+    user_id = models.CharField(_("User ID"), max_length=60, blank=True, default="")
+    datetime = models.DateTimeField(_("Datetime"), auto_now_add=True, editable=False)
+
+    def __str__(self):
+        return '{} - {}'.format(self.installation_id, self.datetime)
+
+    class Meta:
+        app_label = "user"
+        db_table = "installation"
+        verbose_name = _("Installation")
+        verbose_name_plural = _("Installations")

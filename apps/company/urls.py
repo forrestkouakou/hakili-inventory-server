@@ -1,9 +1,21 @@
 from django.urls import include, path
 from rest_framework_nested import routers
 
+from apps.product.views import (
+    BrandViewSet,
+    CategoryViewSet,
+    ProductViewSet,
+)
+from apps.stock.views import OrderViewSet
 from apps.user.views import UserViewSet
-from .views import *
-from ..stock.views import BrandViewSet, CategoryViewSet, ProductViewSet, OrderViewSet
+from .views import (
+    CompanyTypeViewSet,
+    RoleViewSet,
+    CompanyPermissionViewSet,
+    CompanyRoleViewSet,
+    CompanyViewSet,
+    CompanyDetailsViewSet,
+)
 
 router = routers.SimpleRouter()
 router.register("company-types", CompanyTypeViewSet)

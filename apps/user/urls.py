@@ -1,6 +1,9 @@
 from rest_framework import routers
 
-from .views import *
+from apps.user.views import (
+    UserViewSet,
+    InstallationViewSet,
+)
 
 router = routers.SimpleRouter()
 router.register("users", UserViewSet, basename="user")

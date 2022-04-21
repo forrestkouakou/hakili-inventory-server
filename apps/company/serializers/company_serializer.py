@@ -4,7 +4,13 @@ from drf_writable_nested.serializers import WritableNestedModelSerializer
 from rest_framework import serializers
 from rest_framework.relations import PrimaryKeyRelatedField
 
-from apps.company.models import *
+from apps.company.models import (
+    CompanyType,
+    CompanyPermission,
+    CompanyRole,
+    Company,
+    CompanyDetails,
+)
 
 
 class CompanyTypeSerializer(DynamicFieldsMixin, serializers.ModelSerializer):

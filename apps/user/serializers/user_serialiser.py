@@ -9,8 +9,11 @@ from rest_framework.validators import UniqueValidator
 # from apps.company.serializers import CompanyReadSerializer
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
-from apps.company.serializers import CompanyReadSerializer, CompanyRoleReadSerializer
-from apps.core.models import Installation
+from apps.company.serializers import (
+    CompanyReadSerializer,
+    CompanyRoleReadSerializer,
+)
+from apps.user.models import Installation
 from lib.middleware import NoAuditSerializer
 
 
@@ -91,6 +94,7 @@ class UserSerializer(DynamicFieldsMixin, NoAuditSerializer):
 class UserReadSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
     company = CompanyReadSerializer()
     role = CompanyRoleReadSerializer()
+
     # permissions = UserPermissionSerializer(many=True)
 
     class Meta:

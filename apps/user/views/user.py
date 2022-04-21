@@ -1,7 +1,12 @@
+from django.contrib.auth import get_user_model
 from rest_framework import viewsets, permissions
 
 from apps.core import apps_config
-from apps.user.serializers import *
+from apps.user.models import Installation
+from apps.user.serializers import (
+    UserSerializer,
+    InstallationSerializer,
+)
 
 
 class UserViewSet(viewsets.ModelViewSet):

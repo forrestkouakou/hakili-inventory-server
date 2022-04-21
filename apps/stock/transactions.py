@@ -2,7 +2,7 @@ from decimal import Decimal, DecimalException
 
 from django.db.models import F
 
-from apps.core import apps_config as core
+from apps.core.utils import save_handler
 from apps.stock.models import Order, OrderItem, Transaction
 from lib.config import django_logger
 
@@ -23,7 +23,7 @@ class TransactionProcess:
         if not product.is_available:
             product.is_available = True
         # Save the product
-        core.save_handler(product)
+        save_handler(product)
         return product
 
     @staticmethod
@@ -37,13 +37,13 @@ class TransactionProcess:
         # Subtract the given quantity of what we have in stock
         product.quantity = F('quantity') - quantity
         # Save the product
-        core.save_handler(product)
+        save_handler(product)
 
         # Verify if the quantity left for the product is null and mark it as available if yes
         # Find another place for this block :(
         if product.quantity == 0:
             product.is_available = False
-            core.save_handler(product)  # Save the product
+            save_handler(product)  # Save the product
         return product
 
     @staticmethod
@@ -83,7 +83,7 @@ class TransactionProcess:
             }
 
             order_processing = Order(**order_data)
-            order_processed = core.save_handler(order_processing)
+            order_processed = save_handler(order_processing)
             if order_processed:
                 django_logger.info("order_create_process SUCCESSFUL")
                 return TransactionProcess.order_item_create_process(
@@ -109,7 +109,7 @@ class TransactionProcess:
         order_item.quantity = kwargs.get('quantity')
         order_item.summary = kwargs.get('summary')
 
-        return core.save_handler(order_item)
+        return save_handler(order_item)
 
     @staticmethod
     def order_tnx_operation(tnx_type, transaction, order, order_item):
@@ -122,4 +122,4 @@ class TransactionProcess:
         transaction_processing.status = transaction.get('status', '')
         transaction_processing.summary = transaction.get('summary', '')
 
-        return core.save_handler(transaction_processing)
+        return save_handler(transaction_processing)

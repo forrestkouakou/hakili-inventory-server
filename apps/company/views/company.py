@@ -1,6 +1,21 @@
 from rest_framework import viewsets, permissions
 
-from apps.company.serializers import *
+from apps.company.models import (
+    CompanyType,
+    CompanyPermission,
+    CompanyRole,
+    Company,
+    CompanyDetails,
+)
+from apps.company.serializers import (
+    CompanyTypeSerializer,
+    CompanyPermissionSerializer,
+    CompanyRoleReadSerializer,
+    CompanyRoleWriteSerializer,
+    CompanyReadSerializer,
+    CompanyWriteSerializer,
+    CompanyDetailsSerializer,
+)
 from apps.core import apps_config
 
 

@@ -15,8 +15,6 @@ from apps.user.forms import CreatePasswordForm
 from apps.user.serializers import MyTokenObtainPairSerializer
 from apps.user.token import account_activation_token
 
-User = get_user_model()
-
 
 class MyObtainTokenPairView(TokenObtainPairView):
     permission_classes = (AllowAny,)
@@ -31,8 +29,8 @@ class ActivateAccountView(TemplateView):
 
         try:
             uid = force_str(urlsafe_base64_decode(uidb64))
-            user = User.objects.get(pk=uid)
-        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+            user = get_user_model().objects.get(pk=uid)
+        except (TypeError, ValueError, OverflowError, get_user_model().DoesNotExist):
             user = None
 
         encoded_id = signing.dumps({"id": uidb64, "token": token})
@@ -65,7 +63,7 @@ class ActivateAccountView(TemplateView):
                 user_hash = request.POST.get("user_hash", None)
                 user_id = signing.loads(user_hash)
                 decoded_id = force_str(urlsafe_base64_decode(user_id["id"]))
-                user = User.people.user_list().get(id=decoded_id)
+                user = get_user_model().people.user_list().get(id=decoded_id)
                 if user.email == request.POST.get("email", None):
                     user.set_password(request.POST.get("password2"))
                     user.email_confirmed = True
@@ -74,7 +72,7 @@ class ActivateAccountView(TemplateView):
                 return render(request, "user/activate_account.html", {"is_activated": "Is activated"})
                 return JsonResponse(request.path_info)
                 return HttpResponseRedirect(request.path_info)
-            except (TypeError, ValueError, OverflowError, KeyError, User.DoesNotExist):
+            except (TypeError, ValueError, OverflowError, KeyError, get_user_model().DoesNotExist):
                 messages.error(request, _("User not found"))
                 return render(request, "user/activate_account.html", {"form": form})
         else:
