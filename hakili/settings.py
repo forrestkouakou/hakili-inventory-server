@@ -66,7 +66,8 @@ INSTALLED_APPS = [
     'apps.core.apps.CoreConfig',
     'apps.company.apps.CompanyConfig',
     'apps.product.apps.ProductConfig',
-    'apps.stock.apps.StockConfig',
+    'apps.order.apps.OrderConfig',
+    # 'apps.stock.apps.StockConfig',
     'apps.finance.apps.FinanceConfig',
     # 'dj_rest_auth'
 ]
