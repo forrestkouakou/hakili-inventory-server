@@ -6,7 +6,7 @@ from apps.product.views import (
     CategoryViewSet,
     ProductViewSet,
 )
-from apps.stock.views import OrderViewSet
+from apps.order.views import OrderViewSet
 from apps.user.views import UserViewSet
 from .views import (
     CompanyTypeViewSet,
